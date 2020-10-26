@@ -10,8 +10,14 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class ImageGridCollectionViewController: UICollectionViewController {
-
+class ImageGridCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
+    private let itemsPerRow: CGFloat = 2
+    private let sectionInsets = UIEdgeInsets(top: 50.0,
+    left: 20.0,
+    bottom: 50.0,
+    right: 20.0)
+    
+    var imagesDataSource = ImagesDataSource()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,7 +25,8 @@ class ImageGridCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        let cellNib = UINib(nibName: "GridCollectionViewCell", bundle: nil)
+        self.collectionView!.register(cellNib, forCellWithReuseIdentifier: "GridCollectionViewCell")
 
         // Do any additional setup after loading the view.
     }
@@ -34,24 +41,27 @@ class ImageGridCollectionViewController: UICollectionViewController {
     }
     */
 
-    // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        
+        return imagesDataSource.images.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
+      //  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "grid", for: indexPath)
+       let cell = collectionView.dequeueReusableCell(
+        withReuseIdentifier: "GridCollectionViewCell" , for: indexPath
+        ) as? GridCollectionViewCell ?? Bundle.main.loadNibNamed("GridCollectionViewCell", owner: self,options: nil)?.first as! GridCollectionViewCell
+        
+        
         // Configure the cell
-    
+        cell.gridImage?.image = #imageLiteral(resourceName: "Unknown")
         return cell
     }
 
@@ -85,5 +95,29 @@ class ImageGridCollectionViewController: UICollectionViewController {
     
     }
     */
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+      return sectionInsets
+    }
+    
+    // 4
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+      return sectionInsets.left
+    }
+
+    // MARK: UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView,
+                         layout collectionViewLayout: UICollectionViewLayout,
+                         sizeForItemAt indexPath: IndexPath) -> CGSize {
+       //2
+       let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+       let availableWidth = view.frame.width - paddingSpace
+       let widthPerItem = availableWidth / itemsPerRow
+       
+       return CGSize(width: widthPerItem, height: widthPerItem)
+     }
 
 }

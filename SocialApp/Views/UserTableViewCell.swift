@@ -22,7 +22,7 @@ class UserTableViewCell: UITableViewCell {
     var user: User? {
       didSet {
         guard let user = user else { return }
-        
+    
         userName.text = user.userName
         userEmail.text = user.email
       }

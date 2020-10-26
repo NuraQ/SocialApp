@@ -10,12 +10,27 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+    @IBOutlet weak var useName: UILabel!
+    @IBOutlet weak var phoneNumber: UILabel!
+    @IBOutlet weak var Email: UILabel!
+    @IBOutlet weak var webSite: UILabel!
     
+    var user:User? {
+        didSet{
+            guard let user = user else { return }
+            
+                useName?.text = user.userName
+                Email?.text = user.email
+                phoneNumber?.text = user.phoneNumber
+                webSite?.text = user.webSite!
+        }
+    }
+    override func viewDidLoad() {
+        useName?.text = user?.userName
+        Email?.text = user?.email
+        phoneNumber?.text = user?.phoneNumber
+        webSite?.text = user?.webSite!
+    }
 
     /*
     // MARK: - Navigation

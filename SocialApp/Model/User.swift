@@ -11,5 +11,7 @@ import Foundation
 struct User {
   var userName: String?
   var email: String?
-  var phoneNumber: Int
+  var phoneNumber: String?
+  var webSite: String?
+
 }
