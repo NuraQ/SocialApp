@@ -75,10 +75,9 @@ var rowSelected = 0
         }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath as IndexPath)
-                      tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+       tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         rowSelected = indexPath.row
-                       performSegue(withIdentifier: "detailsSegue", sender: self)
+        performSegue(withIdentifier: "detailsSegue", sender: self)
     }
 
     /*

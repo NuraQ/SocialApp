@@ -16,7 +16,7 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
     left: 20.0,
     bottom: 50.0,
     right: 20.0)
-    
+    private var selectedRow = 0
     var imagesDataSource = ImagesDataSource()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,10 +61,15 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
         
         
         // Configure the cell
-        cell.gridImage?.image = #imageLiteral(resourceName: "Unknown")
+        cell.gridImage?.image = #imageLiteral(resourceName: "photo-gallery-icon_1948830")
         return cell
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath as IndexPath, animated: true)
+        selectedRow = indexPath.row
+        performSegue(withIdentifier: "imageView", sender: self)
+    }
     // MARK: UICollectionViewDelegate
 
     /*
@@ -118,6 +123,15 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
        let widthPerItem = availableWidth / itemsPerRow
        
        return CGSize(width: widthPerItem, height: widthPerItem)
+     }
+    
+      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if segue.identifier == "imageView" ,
+             let imageScene = segue.destination as? ImageViewController {
+            let indexPathh = selectedRow
+             let selectedImage = imagesDataSource.images[indexPathh]
+            imageScene.img = selectedImage
+         }
      }
 
 }
