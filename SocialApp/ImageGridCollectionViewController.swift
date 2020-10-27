@@ -61,7 +61,7 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
         
         
         // Configure the cell
-        cell.gridImage?.image = #imageLiteral(resourceName: "photo-gallery-icon_1948830")
+        cell.gridImage?.image = imagesDataSource.images[indexPath.row]
         return cell
     }
 

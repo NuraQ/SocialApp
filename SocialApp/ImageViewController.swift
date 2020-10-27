@@ -22,7 +22,6 @@ class ImageViewController: UIViewController {
         super.viewDidLoad()
         reloadInputViews()
        image?.image = img
-      //  print(image)
     }
     
 

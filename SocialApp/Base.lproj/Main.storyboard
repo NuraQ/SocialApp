@@ -161,20 +161,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pv7-5v-Tip">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="414" id="IZJ-3h-jx9"/>
-                                    <constraint firstAttribute="height" constant="725" id="iA5-in-kfz"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="808" translatesAutoresizingMaskIntoConstraints="NO" id="Pv7-5v-Tip">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Pv7-5v-Tip" firstAttribute="trailing" secondItem="92d-nF-7B0" secondAttribute="trailing" id="9f0-zi-zzO"/>
-                            <constraint firstItem="Pv7-5v-Tip" firstAttribute="bottom" secondItem="92d-nF-7B0" secondAttribute="bottom" id="DAV-io-Sjw"/>
-                            <constraint firstItem="Pv7-5v-Tip" firstAttribute="top" secondItem="92d-nF-7B0" secondAttribute="top" id="W25-Sb-DP0"/>
-                            <constraint firstItem="Pv7-5v-Tip" firstAttribute="leading" secondItem="92d-nF-7B0" secondAttribute="leading" id="hqt-CD-qcq"/>
+                            <constraint firstAttribute="bottom" secondItem="Pv7-5v-Tip" secondAttribute="bottom" id="0im-xD-A6I"/>
+                            <constraint firstItem="Pv7-5v-Tip" firstAttribute="top" secondItem="92d-nF-7B0" secondAttribute="top" id="NTa-n6-UWK"/>
+                            <constraint firstItem="Pv7-5v-Tip" firstAttribute="leading" secondItem="92d-nF-7B0" secondAttribute="leading" id="YdM-75-m6k"/>
+                            <constraint firstItem="Pv7-5v-Tip" firstAttribute="trailing" secondItem="92d-nF-7B0" secondAttribute="trailing" id="cMV-25-nxP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="92d-nF-7B0"/>
                     </view>
@@ -185,7 +181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MoM-8Y-WkS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="700" y="849.77678571428567"/>
+            <point key="canvasLocation" x="698.55072463768124" y="849.77678571428567"/>
         </scene>
         <!--users-->
         <scene sceneID="ooP-B9-GCS">
