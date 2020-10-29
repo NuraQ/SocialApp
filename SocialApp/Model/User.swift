@@ -8,10 +8,15 @@
 
 import Foundation
 
-struct User {
-  var userName: String?
-  var email: String?
-  var phoneNumber: String?
-  var webSite: String?
-
+struct User:Codable {
+//  var userName: String?
+//  var email: String?
+//  var phoneNumber: String?
+//  var webSite: String?
+    public let name: String
+       public let id: Int
+       public let username: String
+       public let email: String
+       public let website: String
+       public let phone: String
 }

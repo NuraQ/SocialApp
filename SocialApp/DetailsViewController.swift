@@ -19,17 +19,17 @@ class DetailsViewController: UIViewController {
         didSet{
             guard let user = user else { return }
             
-                useName?.text = "Name: " + user.userName!
-                Email?.text = "Email" + user.email!
-                phoneNumber?.text = "Phone Number" + user.phoneNumber!
-                webSite?.text = "website: " + user.webSite!
+                useName?.text = "Name: " + user.username
+                Email?.text = "Email" + user.email
+                phoneNumber?.text = "Phone Number" + user.phone
+                webSite?.text = "website: " + user.website
         }
     }
     override func viewDidLoad() {
-        useName?.text = "Name: " + (user?.userName)!
+        useName?.text = "Name: " + (user?.username)!
         Email?.text = "Email:  " + (user?.email)!
-        phoneNumber?.text = "PhoneNumber:  " + (user?.phoneNumber)!
-        webSite?.text = "Website:  " + (user?.webSite)!
+        phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
+        webSite?.text = "Website:  " + (user?.website)!
     }
 
     /*

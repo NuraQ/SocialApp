@@ -25,6 +25,7 @@
 		16540B83254868E70052AF00 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16540B82254868E70052AF00 /* ImageViewController.swift */; };
 		16540B84254884300052AF00 /* Pods_SocialApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D77D28364AF1202F316362 /* Pods_SocialApp.framework */; };
 		16540B85254884300052AF00 /* Pods_SocialApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65D77D28364AF1202F316362 /* Pods_SocialApp.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		16540B8C254B064D0052AF00 /* AddUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16540B8B254B064D0052AF00 /* AddUserTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +61,7 @@
 		16540B7B2546D4CB0052AF00 /* GridCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridCollectionViewCell.xib; sourceTree = "<group>"; };
 		16540B802546F40A0052AF00 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		16540B82254868E70052AF00 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		16540B8B254B064D0052AF00 /* AddUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserTableViewController.swift; path = /Users/asal3/Task3/SocialApp/SocialApp/AddUserTableViewController.swift; sourceTree = "<absolute>"; };
 		65D77D28364AF1202F316362 /* Pods_SocialApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A33C90CB265C379B9F4883 /* Pods-SocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialApp.debug.xcconfig"; path = "Target Support Files/Pods-SocialApp/Pods-SocialApp.debug.xcconfig"; sourceTree = "<group>"; };
 		9FC58691FFDF47B0F090501B /* Pods-SocialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialApp.release.xcconfig"; path = "Target Support Files/Pods-SocialApp/Pods-SocialApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		16540B492545A6510052AF00 /* SocialApp */ = {
 			isa = PBXGroup;
 			children = (
+				16540B8B254B064D0052AF00 /* AddUserTableViewController.swift */,
 				16540B82254868E70052AF00 /* ImageViewController.swift */,
 				16540B802546F40A0052AF00 /* DetailsViewController.swift */,
 				16540B6B2545DA980052AF00 /* Model */,
@@ -290,6 +293,7 @@
 				16540B74254624DF0052AF00 /* UserTableViewCell.swift in Sources */,
 				16540B812546F40A0052AF00 /* DetailsViewController.swift in Sources */,
 				16540B672545D9C90052AF00 /* usersDataSource.swift in Sources */,
+				16540B8C254B064D0052AF00 /* AddUserTableViewController.swift in Sources */,
 				16540B7C2546D4CB0052AF00 /* GridCollectionViewCell.swift in Sources */,
 				16540B4B2545A6510052AF00 /* AppDelegate.swift in Sources */,
 				16540B4D2545A6510052AF00 /* SceneDelegate.swift in Sources */,

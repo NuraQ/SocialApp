@@ -23,7 +23,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Z7L-mE-DW0">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="bCa-wZ-4vN">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="person.crop.circle.badge.plus" catalog="system" id="bCa-wZ-4vN">
                             <connections>
                                 <action selector="add:" destination="SiV-8m-4zD" id="nZl-KI-dnl"/>
                             </connections>
@@ -32,6 +32,7 @@
                     <connections>
                         <outlet property="tableVieww" destination="CVJ-vs-j5d" id="cbn-vO-el6"/>
                         <segue destination="pjy-v9-JXm" kind="show" identifier="detailsSegue" id="tfA-as-ELY"/>
+                        <segue destination="93m-C7-qxR" kind="show" identifier="addUser" id="qu8-nY-yZK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aor-BM-ox4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -222,9 +223,126 @@
             </objects>
             <point key="canvasLocation" x="-949.27536231884062" y="849.77678571428567"/>
         </scene>
+        <!--Add Player-->
+        <scene sceneID="qR7-Ma-ZUF">
+            <objects>
+                <tableViewController title="Add Player" id="93m-C7-qxR" customClass="AddUserViewController" customModule="SocialApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="lT0-aw-6Qr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="User Name" id="yaf-sO-zqH">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="aRb-ES-Sik">
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aRb-ES-Sik" id="omK-ib-d87">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P2o-Ck-QDc">
+                                                    <rect key="frame" x="19" y="-1" width="356" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Email" id="qhs-cA-ggJ">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="gu1-Nx-qo2">
+                                        <rect key="frame" x="0.0" y="155.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gu1-Nx-qo2" id="DEv-62-pdA">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ak8-Qo-sXA">
+                                                    <rect key="frame" x="19" y="-1" width="356" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Phone" id="8ty-6i-7oU">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="nFe-JU-IRX">
+                                        <rect key="frame" x="0.0" y="255.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nFe-JU-IRX" id="4kh-di-ow6">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qb8-qw-INy">
+                                                    <rect key="frame" x="19" y="-1" width="356" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Website" id="UAt-YN-SUx">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Oi0-ov-TNI">
+                                        <rect key="frame" x="0.0" y="355.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Oi0-ov-TNI" id="JoM-dq-a3b">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HL0-pw-zqV">
+                                                    <rect key="frame" x="19" y="-1" width="356" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="93m-C7-qxR" id="tAH-yr-4Ui"/>
+                            <outlet property="delegate" destination="93m-C7-qxR" id="dRC-TE-y6l"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add User" id="le2-lO-TxM">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="3fM-WF-c9c">
+                            <connections>
+                                <segue destination="GGQ-Cx-Tdu" kind="unwind" unwindAction="cancelToPlayersViewController:" id="q8G-xy-pJp"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="kZ6-aR-EVS">
+                            <connections>
+                                <segue destination="GGQ-Cx-Tdu" kind="unwind" identifier="SavePlayerDetail" unwindAction="savePlayerDetail:" id="6PO-YE-s9I"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nameTextField" destination="P2o-Ck-QDc" id="Fgv-oL-DhY"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MeT-5x-Pye" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GGQ-Cx-Tdu" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-39" y="-614"/>
+        </scene>
     </scenes>
     <resources>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
+        <image name="person.crop.circle.badge.plus" catalog="system" width="128" height="101"/>
         <image name="square.grid.2x2.fill" catalog="system" width="128" height="114"/>
     </resources>
 </document>

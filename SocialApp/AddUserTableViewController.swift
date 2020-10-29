@@ -1,62 +1,45 @@
 //
-//  UsersListViewController.swift
-//  SocialApp
+//  AddUserTableViewController.swift
+//  
 //
-//  Created by Asal 3 on 25/10/2020.
-//  Copyright © 2020 Asal 3. All rights reserved.
+//  Created by Asal 3 on 29/10/2020.
 //
 
 import UIKit
 
-class UsersListViewController: UITableViewController {
-  lazy  var usersDataSource = UsersDataSource(tableView: tableVieww)
-    
-    var rowSelected = 0
-    
-    @IBAction func add(_ sender: Any) {
-            performSegue(withIdentifier: "addUser", sender: self)
-    }
+class AddUserTableViewController: UITableViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        tableVieww.reloadData()
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    @IBOutlet var tableVieww: UITableView! {
-          didSet {
-            //self.delegate = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-            
-            
-          }
-      }
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return usersDataSource.numberOfUsers()
+        return 0
     }
 
-
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(
-        withIdentifier: "UserTableViewCell"
-        ) as? UserTableViewCell ?? Bundle.main.loadNibNamed("UserTableViewCell", owner: self,options: nil)?.first as! UserTableViewCell
-        
-       cell.user = usersDataSource.userGet(at: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-       // cell.userName?.text = "sthhh"
-        cell.userImage?.image = #imageLiteral(resourceName: "Unknown")
+        // Configure the cell...
+
         return cell
     }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -66,20 +49,17 @@ class UsersListViewController: UITableViewController {
     }
     */
 
- override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            UsersDataSource.users.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
+        }    
     }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       tableView.deselectRow(at: indexPath as IndexPath, animated: true)
-        rowSelected = indexPath.row
-        performSegue(withIdentifier: "detailsSegue", sender: self)
-    }
+    */
 
     /*
     // Override to support rearranging the table view.
@@ -105,14 +85,5 @@ class UsersListViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "detailsSegue" ,
-            let detailsScene = segue.destination as? DetailsViewController {
-           let indexPathh = rowSelected
-            let selectedUser = UsersDataSource.users[indexPathh]
-            detailsScene.user = selectedUser
-        }
 
-    }
-    
 }
