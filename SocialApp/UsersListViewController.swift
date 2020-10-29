@@ -112,6 +112,12 @@ class UsersListViewController: UITableViewController {
             let selectedUser = UsersDataSource.users[indexPathh]
             detailsScene.user = selectedUser
         }
+        
+        if segue.identifier == "addUser" ,
+               let addScene = segue.destination as? AddUserTableViewController {
+             print("0lo")
+              // detailsScene.user = selectedUser
+           }
 
     }
     

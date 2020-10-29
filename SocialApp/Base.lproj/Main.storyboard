@@ -226,7 +226,7 @@
         <!--Add Player-->
         <scene sceneID="qR7-Ma-ZUF">
             <objects>
-                <tableViewController title="Add Player" id="93m-C7-qxR" customClass="AddUserViewController" customModule="SocialApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Add Player" id="93m-C7-qxR" customClass="AddUserTableViewController" customModule="SocialApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="lT0-aw-6Qr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -241,8 +241,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P2o-Ck-QDc">
-                                                    <rect key="frame" x="19" y="-1" width="356" height="44"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XvC-KE-gH7">
+                                                    <rect key="frame" x="29" y="-0.5" width="356" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -330,9 +330,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="nameTextField" destination="P2o-Ck-QDc" id="Fgv-oL-DhY"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MeT-5x-Pye" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="GGQ-Cx-Tdu" userLabel="Exit" sceneMemberID="exit"/>
