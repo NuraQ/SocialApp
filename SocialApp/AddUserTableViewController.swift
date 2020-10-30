@@ -9,6 +9,13 @@ import UIKit
 
 class AddUserTableViewController: UITableViewController {
 
+    @IBOutlet weak var userName: UITextField!
+    @IBOutlet weak var Email: UITextField!
+    @IBOutlet weak var phone: UITextField!
+    
+    @IBOutlet weak var website: UITextField!
+    
+    var newUser: User?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,58 +38,25 @@ class AddUserTableViewController: UITableViewController {
         return 1
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if !(website.text!.isEmpty) && !(Email.text!.isEmpty) && !(phone.text!.isEmpty) && !(userName.text!.isEmpty) {
+             newUser = User(name: userName.text ?? "" , id: 5, username: userName.text ?? "", email: Email.text ?? "", website: website.text ?? "", phone: phone.text ?? "")
+           // UsersDataSource.append(user: newUser, to: tableVieww )
+        }
+            //else {
+//            let Alert = UIAlertController(title: title, message: "message", preferredStyle:  .alert)
+//
+//                 let Action = UIAlertAction(title: "Awsome", style: .default, handler: {
+//                     action in
+//                   //  self.startNewRound()
+//                 })
+//                 Alert.addAction(Action)
+//                 present(Alert, animated: true, completion: nil)
+//            return
+//        }
     }
     
 

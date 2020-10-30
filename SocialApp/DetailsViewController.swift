@@ -25,6 +25,7 @@ class DetailsViewController: UIViewController {
                 webSite?.text = "website: " + user.website
         }
     }
+    
     override func viewDidLoad() {
         useName?.text = "Name: " + (user?.username)!
         Email?.text = "Email:  " + (user?.email)!

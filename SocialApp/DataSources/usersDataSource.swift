@@ -40,6 +40,9 @@ struct company: Codable {
 class UsersDataSource: NSObject {
     // MARK: - Properties
     static  var users: [User] = []
+    static  var savedArray: [User] = []
+    let defaults = UserDefaults.standard
+
     //  private var results:[Result<Any, <#Failure: Error#>>]
     
     static func generateUsersData(tableView: UITableView)  {
@@ -55,6 +58,7 @@ class UsersDataSource: NSObject {
                     // we have good data – go back to the main thread
                     //                    // update our UI
                     //                    self.users = decodedResponse.result
+    
                     for item in decodedResponse {
                         UsersDataSource.users += [item]
                     }
@@ -73,7 +77,17 @@ class UsersDataSource: NSObject {
     
     // MARK: - Initializers
     init(tableView: UITableView) {
+        super.init()
         UsersDataSource.generateUsersData(tableView: tableView)
+          if let objects = UserDefaults.standard.value(forKey: "user_objects") as? Data {
+                let decoder = JSONDecoder()
+                 if let obj = try? decoder.decode(Array.self, from: objects) as [User]{
+                        UsersDataSource.savedArray = obj
+                  }
+            appendStoredValuesToUsers()
+
+      }
+
     }
     
     // MARK: - Datasource Methods
@@ -81,9 +95,20 @@ class UsersDataSource: NSObject {
         UsersDataSource.users.count
     }
     
+    func appendStoredValuesToUsers () {
+        for user in UsersDataSource.savedArray {
+            UsersDataSource.users.append(user)
+           }
+       }
+    
     func append(user: User, to tableView: UITableView) {
-        UsersDataSource.users.append(user)
-        tableView.insertRows(at: [IndexPath(row: UsersDataSource.users.count-1, section: 0)], with: .automatic)
+        let encoder = JSONEncoder()
+        UsersDataSource.savedArray.append(user)
+        if let encoded = try? encoder.encode(UsersDataSource.savedArray){
+            UserDefaults.standard.set(encoded, forKey: "user_objects")
+            UsersDataSource.users.append(user)
+            tableView.insertRows(at: [IndexPath(row: UsersDataSource.users.count-1, section: 0)], with: .automatic)
+        }
     }
     
     func userGet(at indexPath: IndexPath) -> User {

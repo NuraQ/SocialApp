@@ -13,10 +13,7 @@ import Alamofire
 class ImagesDataSource: NSObject {
     
     var images:[UIImage] = []
-    let headers: HTTPHeaders = [
-        .authorization(username: "test@email.com", password: "testpassword"),
-        .accept("application/json")
-    ]
+ 
     
     override init() {
         super.init()

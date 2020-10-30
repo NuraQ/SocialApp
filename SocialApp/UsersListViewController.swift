@@ -12,6 +12,7 @@ class UsersListViewController: UITableViewController {
   lazy  var usersDataSource = UsersDataSource(tableView: tableVieww)
     
     var rowSelected = 0
+    var savedArray:[User] = []
     
     @IBAction func add(_ sender: Any) {
             performSegue(withIdentifier: "addUser", sender: self)
@@ -20,10 +21,22 @@ class UsersListViewController: UITableViewController {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        tableVieww.reloadData()
-
+//        if let objects = UserDefaults.standard.value(forKey: "user_objects") as? Data {
+//        let decoder = JSONDecoder()
+//         if let obj = try? decoder.decode(Array.self, from: objects) as [User]{
+//                savedArray = obj
+//          }
+//         appendStoredValuesToUsers()
+       //  savedArray = defaults.object(forKey: "sth") as? [User] ?? [User]()
+      //  print("saved data \(savedArray)")
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+      //  }
+    }
+    func appendStoredValuesToUsers () {
+        for user in savedArray {
+            usersDataSource.append(user: user, to: tableVieww)
+        }
     }
     @IBOutlet var tableVieww: UITableView! {
           didSet {
@@ -33,6 +46,7 @@ class UsersListViewController: UITableViewController {
           }
       }
     // MARK: - Table view data source
+  //  let savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -53,7 +67,7 @@ class UsersListViewController: UITableViewController {
        cell.user = usersDataSource.userGet(at: indexPath)
 
        // cell.userName?.text = "sthhh"
-        cell.userImage?.image = #imageLiteral(resourceName: "Unknown")
+        cell.userImage?.image = #imageLiteral(resourceName: "scott")
         return cell
     }
     
@@ -81,30 +95,7 @@ class UsersListViewController: UITableViewController {
         performSegue(withIdentifier: "detailsSegue", sender: self)
     }
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailsSegue" ,
             let detailsScene = segue.destination as? DetailsViewController {
@@ -115,10 +106,26 @@ class UsersListViewController: UITableViewController {
         
         if segue.identifier == "addUser" ,
                let addScene = segue.destination as? AddUserTableViewController {
-             print("0lo")
               // detailsScene.user = selectedUser
            }
 
     }
+    @IBAction func cancelToUsersTableViewController(_ segue: UIStoryboardSegue) {
+     }
     
+    @IBAction func saveUserDetails(_ segue: UIStoryboardSegue) {
+       guard let AddUserTableViewController  = segue.source as? AddUserTableViewController,
+        let user = AddUserTableViewController.newUser
+             else {
+               return
+           }
+       // savedArray.append(user)
+//        let encoder = JSONEncoder()
+//            if let encoded = try? encoder.encode(savedArray){
+//               UserDefaults.standard.set(encoded, forKey: "user_objects")
+        //defaults.set(savedArray, forKey: "bla")
+        usersDataSource.append(user: user, to: tableVieww)
+    // }
+    }
+   
 }
