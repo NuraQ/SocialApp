@@ -19,4 +19,12 @@ struct User:Codable {
        public let email: String
        public let website: String
        public let phone: String
+      public let company: company
+
+}
+struct company: Codable {
+    public let name: String
+    public let catchPhrase: String
+    public let bs: String
+    
 }

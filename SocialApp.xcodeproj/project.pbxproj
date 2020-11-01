@@ -129,8 +129,8 @@
 		16540B682545D9DC0052AF00 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				16540B662545D9C90052AF00 /* usersDataSource.swift */,
 				16540B782546CDEE0052AF00 /* imagesDataSource.swift */,
+				16540B662545D9C90052AF00 /* usersDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";

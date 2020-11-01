@@ -13,38 +13,52 @@ class UsersListViewController: UITableViewController {
     
     var rowSelected = 0
     var savedArray:[User] = []
-    
+    var filteredUsers: [User] = []
+    let searchController = UISearchController(searchResultsController: nil)
+
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
     @IBAction func add(_ sender: Any) {
             performSegue(withIdentifier: "addUser", sender: self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-//        if let objects = UserDefaults.standard.value(forKey: "user_objects") as? Data {
-//        let decoder = JSONDecoder()
-//         if let obj = try? decoder.decode(Array.self, from: objects) as [User]{
-//                savedArray = obj
-//          }
-//         appendStoredValuesToUsers()
-       //  savedArray = defaults.object(forKey: "sth") as? [User] ?? [User]()
-      //  print("saved data \(savedArray)")
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-      //  }
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Users"
+        navigationItem.searchController = nil
+        //tableView.tableHeaderView = searchController.searchBar
+        navigationItem.searchController?.searchBar.isHidden = true;
+
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 600
+        definesPresentationContext = true
+       // navigationItem.hidesSearchBarWhenScrolling = true
+
+        self.tableView.tableHeaderView = nil;
     }
     func appendStoredValuesToUsers () {
         for user in savedArray {
             usersDataSource.append(user: user, to: tableVieww)
         }
     }
-    @IBOutlet var tableVieww: UITableView! {
-          didSet {
-            //self.delegate = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-            
-            
-          }
-      }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationItem.searchController = searchController
+       // navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController?.searchBar.isHidden = false;
+
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+           self.tableView.estimatedRowHeight = 700 // for example. Set your average height
+         self.tableView.rowHeight = UITableView.automaticDimension
+         self.tableView.reloadData()
+    }
+    @IBOutlet var tableVieww: UITableView!
     // MARK: - Table view data source
   //  let savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
 
@@ -55,35 +69,37 @@ class UsersListViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        if isFiltering {
+           return filteredUsers.count
+         }
         return usersDataSource.numberOfUsers()
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var userForRow:User
       let cell = tableView.dequeueReusableCell(
         withIdentifier: "UserTableViewCell"
         ) as? UserTableViewCell ?? Bundle.main.loadNibNamed("UserTableViewCell", owner: self,options: nil)?.first as! UserTableViewCell
-        
-       cell.user = usersDataSource.userGet(at: indexPath)
-
-       // cell.userName?.text = "sthhh"
+         if isFiltering {
+             userForRow = filteredUsers[indexPath.row]
+           } else {
+             userForRow = usersDataSource.userGet(at: indexPath)
+           }
+       cell.user = userForRow
         cell.userImage?.image = #imageLiteral(resourceName: "scott")
+
         return cell
     }
     
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             UsersDataSource.users.remove(at: indexPath.row)
+            UsersDataSource.savedArray.remove(at: indexPath.row)
+
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -103,11 +119,6 @@ class UsersListViewController: UITableViewController {
             let selectedUser = UsersDataSource.users[indexPathh]
             detailsScene.user = selectedUser
         }
-        
-        if segue.identifier == "addUser" ,
-               let addScene = segue.destination as? AddUserTableViewController {
-              // detailsScene.user = selectedUser
-           }
 
     }
     @IBAction func cancelToUsersTableViewController(_ segue: UIStoryboardSegue) {
@@ -119,13 +130,23 @@ class UsersListViewController: UITableViewController {
              else {
                return
            }
-       // savedArray.append(user)
-//        let encoder = JSONEncoder()
-//            if let encoded = try? encoder.encode(savedArray){
-//               UserDefaults.standard.set(encoded, forKey: "user_objects")
-        //defaults.set(savedArray, forKey: "bla")
         usersDataSource.append(user: user, to: tableVieww)
-    // }
     }
    
+    func filterContentForSearchText(_ searchText: String) {
+        filteredUsers = UsersDataSource.users.filter { (usr: User) -> Bool in
+            return usr.name.lowercased().contains(searchText.lowercased())
+            
+      }
+        print(filteredUsers)
+      
+      tableVieww.reloadData()
+    }}
+
+extension UsersListViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    let searchBar = searchController.searchBar
+    filterContentForSearchText(searchBar.text!)
+  }
 }
+

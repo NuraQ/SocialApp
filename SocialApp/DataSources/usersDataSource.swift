@@ -29,12 +29,7 @@ struct geo: Codable {
     public let lng: String
 }
 
-struct company: Codable {
-    public let name: String
-    public let catchPhrase: String
-    public let bs: String
-    
-}
+
 
 
 class UsersDataSource: NSObject {
@@ -42,7 +37,7 @@ class UsersDataSource: NSObject {
     static  var users: [User] = []
     static  var savedArray: [User] = []
     let defaults = UserDefaults.standard
-
+    
     //  private var results:[Result<Any, <#Failure: Error#>>]
     
     static func generateUsersData(tableView: UITableView)  {
@@ -58,16 +53,14 @@ class UsersDataSource: NSObject {
                     // we have good data – go back to the main thread
                     //                    // update our UI
                     //                    self.users = decodedResponse.result
-    
+                    
                     for item in decodedResponse {
                         UsersDataSource.users += [item]
                     }
                     DispatchQueue.main.async{
                         tableView.reloadData()
                     }
-                }
-                
-                // everything is good, so we can exit
+                }                                // everything is good, so we can exit
             }
             
             
@@ -79,15 +72,10 @@ class UsersDataSource: NSObject {
     init(tableView: UITableView) {
         super.init()
         UsersDataSource.generateUsersData(tableView: tableView)
-          if let objects = UserDefaults.standard.value(forKey: "user_objects") as? Data {
-                let decoder = JSONDecoder()
-                 if let obj = try? decoder.decode(Array.self, from: objects) as [User]{
-                        UsersDataSource.savedArray = obj
-                  }
-            appendStoredValuesToUsers()
-
-      }
-
+        retrieveStoredData()
+        appendStoredValuesToUsers()
+        
+        
     }
     
     // MARK: - Datasource Methods
@@ -95,11 +83,21 @@ class UsersDataSource: NSObject {
         UsersDataSource.users.count
     }
     
+    func retrieveStoredData () {
+        if let objects = UserDefaults.standard.value(forKey: "user_objects") as? Data {
+            let decoder = JSONDecoder()
+            if let obj = try? decoder.decode(Array.self, from: objects) as [User]{
+                UsersDataSource.savedArray = obj
+            }
+        }
+        
+    }
+    
     func appendStoredValuesToUsers () {
         for user in UsersDataSource.savedArray {
             UsersDataSource.users.append(user)
-           }
-       }
+        }
+    }
     
     func append(user: User, to tableView: UITableView) {
         let encoder = JSONEncoder()
