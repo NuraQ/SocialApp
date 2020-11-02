@@ -52,29 +52,10 @@ class DetailsViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-
-        let latitude = ((user?.address.geo.lat ?? "-41.9") as NSString).doubleValue
-        
-          let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
- 
-        let userLocation = CLLocation(latitude:latitude,  longitude:   longitude);
-
-        mapView.centerToLocation(userLocation)
-        var strLocation = (user?.address.city)! + "," + (user?.address.street)!
-        mapView.setUpMarker(latitude: latitude, long: longitude,
-                            address: strLocation  )
-        phoneNumber.isUserInteractionEnabled = true
-        location.isUserInteractionEnabled = true
-
+        super.viewDidLoad()
+        setUpMap()
         self.setupLabelTap()
-
-        useName?.text = "Name: " + (user?.username)!
-        Email?.text = "Email:  " + (user?.email)!
-        phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
-        webSite?.text = "Website:  " + (user?.website)!
-        location?.text = "address: " + (user?.address.city)! + "," + (user?.address.street)!
-        
-        
+        updateLabels()
 
     }
     
@@ -87,7 +68,24 @@ class DetailsViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    func setUpMap() {
+        let latitude = ((user?.address.geo.lat ?? "-41.9") as NSString).doubleValue
+        let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
+        let userLocation = CLLocation(latitude:latitude,  longitude:   longitude);
+        var strLocation = (user?.address.city)! + "," + (user?.address.street)!
 
+        mapView.centerToLocation(userLocation)
+        mapView.setUpMarker(latitude: latitude, long: longitude,
+                            address: strLocation  )
+    }
+    
+    func updateLabels() {
+        useName?.text = "Name: " + (user?.username)!
+        Email?.text = "Email:  " + (user?.email)!
+        phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
+        webSite?.text = "Website:  " + (user?.website)!
+        location?.text = "address: " + (user?.address.city)! + "," + (user?.address.street)!
+    }
   
  
     

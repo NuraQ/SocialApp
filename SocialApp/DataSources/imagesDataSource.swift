@@ -29,11 +29,7 @@ class ImagesDataSource: NSObject {
         fetchImages(collectionImgs: collectionImgs)
         
     }
-    
-    //    if let data = try? Data(contentsOf: url!)
-    //       {
-    //         let image: UIImage = UIImage(data: data)
-    //       }
+
     
     func fetchImages (collectionImgs: UICollectionView) {
         let manager = Alamofire.Session.default
@@ -80,7 +76,7 @@ class ImagesDataSource: NSObject {
         var gallery:[UIImage] = []
         fetchedImages[indexPath.section]  = fetchedImages[indexPath.section] ?? []
         gallery.append(img)
-        fetchedImages[indexPath.section] = gallery
+        fetchedImages[indexPath.section]! += [img]
     }
     
 

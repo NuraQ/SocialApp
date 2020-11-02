@@ -2,23 +2,6 @@
 
 import UIKit
 
-struct Response: Codable {
-    public let name: String
-    public let id: Int
-    public let username: String
-    public let email: String
-    public let website: String
-    public let phone: String
-    //public let addres: address
-    //  public let company: company
-    //public let geo: geo
-    
-    
-    
-}
-
-
-
 
 class UsersDataSource: NSObject {
     // MARK: - Properties

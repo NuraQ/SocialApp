@@ -28,7 +28,7 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        
+        collectionView.allowsMultipleSelection = false
         // Register cell classes
         let cellNib = UINib(nibName: "GridCollectionViewCell", bundle: nil)
         self.collectionView!.register(cellNib, forCellWithReuseIdentifier: "GridCollectionViewCell")
@@ -36,15 +36,6 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
         // Do any additional setup after loading the view.
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using [segue destinationViewController].
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -79,7 +70,8 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
                     if let data = try? Data(contentsOf: url)
                     {
                         let image: UIImage = UIImage(data: data)!
-                    //    self.imagesDataSource.appendToFetchedImgs(indexPath: indexPath, img: image)
+                        self.imagesDataSource.appendToFetchedImgs(indexPath: indexPath, img: image)
+                      //  self.imagesDataSource.fetchedImages[indexPath.section + 1]?.append(image)
                         self.imagesDataSource.images.append(image)
                         DispatchQueue.main.sync {
                             cell.gridImage?.image = image
@@ -97,10 +89,9 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath as IndexPath, animated: true)
+     //   collectionView.deselectItem(at: indexPath as IndexPath, animated: true)
         selectedRow = indexPath.row
         selectedSection = indexPath.section
-        
         performSegue(withIdentifier: "imageView", sender: self)
     }
 
@@ -133,9 +124,22 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
         if segue.identifier == "imageView" ,
             let imageScene = segue.destination as? ImageViewController {
         
-          //  let selectedImage = imagesDataSource.fetchedImages[0]?[0]
-            let selectedImage = imagesDataSource.images[selectedRow]
-            imageScene.img = selectedImage
+            let selectedImageUrl = imagesDataSource.galleries[selectedSection + 1]?[selectedRow].url
+            var selectedImage:UIImage = #imageLiteral(resourceName: "photo-gallery-icon_1948830")
+            if let url = URL(string:selectedImageUrl ?? "" ) {
+                
+                    if let data = try? Data(contentsOf: url)
+                    {
+                        let image: UIImage = UIImage(data: data)!
+                    
+                        self.imagesDataSource.images.append(image)
+                         //imageScene.img = image
+                        imageScene.img = image
+                    }
+
+                
+            }
+            print(selectedRow)
         }
     }
     
