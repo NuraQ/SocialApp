@@ -66,7 +66,8 @@ class DetailsViewController: UIViewController {
 
         mapView.centerToLocation(userLocation)
         mapView.setUpMarker(latitude: latitude, long: longitude,
-                            address: user?.address.city ?? "" + " , " +  (user?.address.street)!  )
+                            address: user?.address.city ?? "" + " , " +  (user?.address.street ?? "")
+        )
         phoneNumber.isUserInteractionEnabled = true
         location.isUserInteractionEnabled = true
 
@@ -105,16 +106,7 @@ class DetailsViewController: UIViewController {
                 application.open(url , options: [:], completionHandler: nil)
           }
         }
-//        if MFMailComposeViewController.canSendMail() {
-//               let mail = MFMailComposeViewController()
-//               mail.mailComposeDelegate = self
-//               mail.setToRecipients(["you@yoursite.com"])
-//               mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
-//
-//               present(mail, animated: true)
-//           } else {
-//               // show failure alert
-//           }
+
     
         
     }

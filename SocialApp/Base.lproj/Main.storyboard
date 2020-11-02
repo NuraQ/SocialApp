@@ -32,7 +32,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableVieww" destination="CVJ-vs-j5d" id="cbn-vO-el6"/>
-                        <segue destination="J7Q-Tm-LVq" kind="show" identifier="detailsSegue" id="tfA-as-ELY"/>
+                        <segue destination="pjy-v9-JXm" kind="show" identifier="detailsSegue" id="VUz-5k-WOb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aor-BM-ox4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -560,6 +560,9 @@
             <point key="canvasLocation" x="701.44927536231887" y="72.991071428571431"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="VUz-5k-WOb"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
         <image name="person.crop.circle.badge.plus" catalog="system" width="128" height="101"/>
