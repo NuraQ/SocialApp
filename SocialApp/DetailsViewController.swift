@@ -46,21 +46,23 @@ class DetailsViewController: UIViewController {
     var user:User? {
         didSet{
             guard let user = user else { return }
-            
-            useName?.text = "Name: " + user.username
-            Email?.text = "Email" + user.email
-            phoneNumber?.text = "Phone Number" + user.phone
-            webSite?.text = "website: " + user.website
-            location?.text = "addreaa: " + user.address.city
+        
 
         }
     }
     
     override func viewDidLoad() {
-        // Set initial location in Honolulu
+
+        let latitude = ((user?.address.geo.lat ?? "-41.9") as NSString).doubleValue
         
-       // let userLocation = CLLocation(latitude: user?.address.geo.lat ?? 21.4765, longitude: user?.address.geo.lng ?? -157.9647);
-       // mapView.centerToLocation(userLocation)
+          let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
+ 
+        let userLocation = CLLocation(latitude:latitude,  longitude:   longitude);
+
+        mapView.centerToLocation(userLocation)
+        var strLocation = (user?.address.city)! + "," + (user?.address.street)!
+        mapView.setUpMarker(latitude: latitude, long: longitude,
+                            address: strLocation  )
         phoneNumber.isUserInteractionEnabled = true
         location.isUserInteractionEnabled = true
 
@@ -70,7 +72,7 @@ class DetailsViewController: UIViewController {
         Email?.text = "Email:  " + (user?.email)!
         phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
         webSite?.text = "Website:  " + (user?.website)!
-        location?.text = "addreaa: " + (user?.address.city)!
+        location?.text = "address: " + (user?.address.city)! + "," + (user?.address.street)!
         
         
 
@@ -85,7 +87,10 @@ class DetailsViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-   
+
+  
+ 
+    
     @objc func labelTapped(_ sender: UITapGestureRecognizer) {
           let email = "nura.qasrawi@gmail.com"
      //   if let url = URL(string: "mailto://\(email)") {
@@ -110,25 +115,13 @@ class DetailsViewController: UIViewController {
         
     }
     
-        @objc func mapTapped(_ sender: UITapGestureRecognizer) {
-           if let url = URL(string: "http://maps.apple.com/maps?saddr=\(user?.address.geo.lat)&daddr=\(user?.address.geo.lng)")
-           {
-            let application:UIApplication = UIApplication.shared
-                       if (application.canOpenURL(url)) {
-                           application.open(url , options: [:], completionHandler: nil)
-                     }
-            }
-            
-        }
+       
     func setupLabelTap() {
         
         let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.labelTapped(_:)))
-        let map = UITapGestureRecognizer(target: self, action: #selector(self.mapTapped(_:)))
-
         self.phoneNumber.isUserInteractionEnabled = true
         self.phoneNumber.addGestureRecognizer(labelTap)
-        self.location.isUserInteractionEnabled = true
-        self.location.addGestureRecognizer(map)
+  
 
         
     }
@@ -145,4 +138,14 @@ extension MKMapView {
       longitudinalMeters: regionRadius)
     setRegion(coordinateRegion, animated: true)
   }
+}
+
+extension MKMapView {
+    func setUpMarker(latitude: Double, long: Double, address:String) {
+        let annotation = MKPointAnnotation()
+         let centerCoordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude:CLLocationDegrees(long))
+        annotation.coordinate = centerCoordinate
+        annotation.title = address
+        self.addAnnotation(annotation)
+    }
 }
