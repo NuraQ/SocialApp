@@ -18,10 +18,8 @@ class UsersDataSource: NSObject {
         }
         let request = URLRequest(url: url)
         URLSession.shared.dataTask(with: request) { data, response, error in
-            
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode([User].self, from: data) {
-                    
                     for item in decodedResponse {
                         UsersDataSource.users += [item]
                     }
@@ -30,8 +28,6 @@ class UsersDataSource: NSObject {
                     }
                 }                                // everything is good, so we can exit
             }
-            
-            
         }.resume()
         
     }

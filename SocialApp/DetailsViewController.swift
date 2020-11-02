@@ -21,7 +21,6 @@ class DetailsViewController: UIViewController {
         didSet{
             var img = #imageLiteral(resourceName: "scott")
             userImage.image = #imageLiteral(resourceName: "scott")
-            
         }
     }
 
@@ -46,8 +45,6 @@ class DetailsViewController: UIViewController {
     var user:User? {
         didSet{
             guard let user = user else { return }
-        
-
         }
     }
     
@@ -73,7 +70,6 @@ class DetailsViewController: UIViewController {
         let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
         let userLocation = CLLocation(latitude:latitude,  longitude:   longitude);
         var strLocation = (user?.address.city)! + "," + (user?.address.street)!
-
         mapView.centerToLocation(userLocation)
         mapView.setUpMarker(latitude: latitude, long: longitude,
                             address: strLocation  )
@@ -99,18 +95,6 @@ class DetailsViewController: UIViewController {
                 application.open(url , options: [:], completionHandler: nil)
           }
         }
-//        if MFMailComposeViewController.canSendMail() {
-//               let mail = MFMailComposeViewController()
-//               mail.mailComposeDelegate = self
-//               mail.setToRecipients(["you@yoursite.com"])
-//               mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
-//
-//               present(mail, animated: true)
-//           } else {
-//               // show failure alert
-//           }
-    
-        
     }
     
        
