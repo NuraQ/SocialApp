@@ -50,9 +50,6 @@ class UsersDataSource: NSObject {
             
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode([User].self, from: data) {
-                    // we have good data – go back to the main thread
-                    //                    // update our UI
-                    //                    self.users = decodedResponse.result
                     
                     for item in decodedResponse {
                         UsersDataSource.users += [item]

@@ -17,7 +17,9 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
     bottom: 50.0,
     right: 20.0)
     private var selectedRow = 0
-    var imagesDataSource = ImagesDataSource()
+    
+    @IBOutlet var imageGridCollectionView: UICollectionView!
+    lazy var imagesDataSource = ImagesDataSource(collectionImgs: self.imageGridCollectionView)
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,25 +45,48 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return imagesDataSource.galleries.count
     }
 
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        
-        return imagesDataSource.images.count
+        let sections = imagesDataSource.galleries.count
+        for sectionNumber in 0..<sections {
+            if sectionNumber == section {
+                return imagesDataSource.galleries[sectionNumber]?.count ?? imagesDataSource.galleries.count
+            }
+        }
+                return imagesDataSource.imgs.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      //  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "grid", for: indexPath)
-       let cell = collectionView.dequeueReusableCell(
-        withReuseIdentifier: "GridCollectionViewCell" , for: indexPath
-        ) as? GridCollectionViewCell ?? Bundle.main.loadNibNamed("GridCollectionViewCell", owner: self,options: nil)?.first as! GridCollectionViewCell
+        //  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "grid", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "GridCollectionViewCell" , for: indexPath
+            ) as? GridCollectionViewCell ?? Bundle.main.loadNibNamed("GridCollectionViewCell", owner: self,options: nil)?.first as! GridCollectionViewCell
+        
+        let x = imagesDataSource.galleries[1]
+        //imagesDataSource.getImage(imageURL: "")
+        if let url = URL(string: imagesDataSource.galleries[indexPath.section]?[indexPath.row] ?? "" ) {
+            //
+            DispatchQueue.global(qos: .background).async {
+                
+                if let data = try? Data(contentsOf: url)
+                {
+                    
+                    let image: UIImage = UIImage(data: data)!
+                    //imagesDataSource.images += [image]
+                    DispatchQueue.main.sync {
+                        cell.gridImage?.image = image
+                        
+                    }
+                }
+            }
+        }
         
         
-        // Configure the cell
-        cell.gridImage?.image = imagesDataSource.images[indexPath.row]
+        // Configure the celli
         return cell
     }
 

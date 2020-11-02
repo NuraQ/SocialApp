@@ -8,7 +8,9 @@
 
 import UIKit
 
+
 class DetailsViewController: UIViewController {
+    
     
     @IBOutlet weak var useName: UILabel!
     @IBOutlet weak var phoneNumber: UILabel!
@@ -63,14 +65,25 @@ class DetailsViewController: UIViewController {
      */
    
     @objc func labelTapped(_ sender: UITapGestureRecognizer) {
-          let email = "foo@bar.com"
-        if let url = URL(string: "mailto:\(email)") {
+          let email = "nura.qasrawi@gmail.com"
+     //   if let url = URL(string: "mailto://\(email)") {
+        if let url = URL(string: "tel://1800900900") {
 
           let application:UIApplication = UIApplication.shared
-          if (application.canOpenURL(url)) {
-            application.open(url, options: [:], completionHandler: nil)
+            if (application.canOpenURL(url)) {
+                application.open(url , options: [:], completionHandler: nil)
           }
         }
+//        if MFMailComposeViewController.canSendMail() {
+//               let mail = MFMailComposeViewController()
+//               mail.mailComposeDelegate = self
+//               mail.setToRecipients(["you@yoursite.com"])
+//               mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
+//
+//               present(mail, animated: true)
+//           } else {
+//               // show failure alert
+//           }
     
         
     }
@@ -83,3 +96,14 @@ class DetailsViewController: UIViewController {
         
     }
 }
+//extension DetailsViewController: WKNavigationDelegate {
+//
+//        if (scheme.lowercased() == "mailto") {
+//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            // here I decide to .cancel, do as you wish
+//            decisionHandler(.cancel)
+//            return
+//        }
+//        decisionHandler(.allow)
+//    }
+//}

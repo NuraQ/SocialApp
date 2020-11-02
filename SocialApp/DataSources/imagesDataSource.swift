@@ -10,48 +10,111 @@ import UIKit
 import Foundation
 import Alamofire
 
+struct Image: Codable {
+    public let id: Int
+    public let albumId: Int
+    public let url: String
+    
+}
 class ImagesDataSource: NSObject {
     
     var images:[UIImage] = []
- 
+    var galleries = [Int: [Image]]()
+    var imgs:[Image] = []
     
-    override init() {
+    init(collectionImgs: UICollectionView) {
         super.init()
-        //        for _ in 0..<5{
-        //            images.append(#imageLiteral(resourceName: "Unknown"))
-        //        }
-        fetchData()
+        fetchImages(collectionImgs: collectionImgs)
         
     }
     
-    func fetchData () {
-        AF.request("https://jsonplaceholder.typicode.com/albums/1/photos",method: .get, encoding: JSONEncoding.default).responseJSON { response in
+    //    if let data = try? Data(contentsOf: url!)
+    //       {
+    //         let image: UIImage = UIImage(data: data)
+    //       }
+    
+    func fetchImages (collectionImgs: UICollectionView) {
+        let manager = Alamofire.Session.default
+        manager.session.configuration.timeoutIntervalForRequest = 200
+        
+        AF.request("https://jsonplaceholder.typicode.com/photos",method: .get, parameters:nil, encoding: JSONEncoding.default).responseJSON { response in
             
-            // print(response)
-            switch response.result {
-            case .success(let value):
-                //  let t = try? JSONSerialization.data(withJSONObject: value)
-                if let jsonArray = value as? [[String: Any]] {
-                    for dic in jsonArray{
-                        //      guard let url = dic["url"] as? URLConvertible else { return }
-                        AF.request(dic["url"] as! String,method: .get, encoding: JSONEncoding.default).responseData { response in
-                            //print(response.result)
-                            if let data = response.value {
-                                guard let img = UIImage(data: data) else { return }
-                                self.images.append(img)
-                                
-                            }                            }
+            if let data = response.data {
+                
+                if let decodedResponse = try? JSONDecoder().decode([Image].self, from: data) {
+                    self.imgs = decodedResponse
+                    imgsSort()
+                    DispatchQueue.main.async{
+                        
+                        collectionImgs.reloadData()
                     }
-                    
+                    // imgsSort()
                 }
-            case .failure(let error):
-                print(error)
+                // everything is good, so we can exit
             }
+            // self.imgsSort()
             
             
         }
         
+        
+        
+        func imgsSort() {
+            var gallery:[Image] = []
+            
+            for img in imgs {
+                
+                galleries[img.albumId]  = galleries[img.albumId] ?? []
+                gallery.append(img)
+                galleries[img.albumId] = gallery
+            }
+            
+        }
+        // print( galleries[2]!)
+        print("yea")
+        
+    }
+    func getImage(imageURL: String) -> UIImage? {
+        var img:UIImage?
+        //      guard let url = dic["url"] as? URLConvertible else { return }
+        AF.request("https://via.placeholder.com/600/24f355" ,method: .get, encoding: JSONEncoding.default).responseData { response in
+            //print(response.result)
+            
+            if let data = response.value {
+                
+                guard let img = UIImage(data: data) else { return }
+                self.images.append(img)
+                
+                
+                
+            }
+            
+        }
+        return img
+        
     }
     
 }
+//func fetchData ()  -> UIImage {
+//    var imgg:UIImage = #imageLiteral(resourceName: "Msn_messenger_logo")
+//    //      guard let url = dic["url"] as? URLConvertible else { return }
+//    AF.request("https://via.placeholder.com/600/24f355" ,method: .get, encoding: JSONEncoding.default).responseData { response in
+//        //print(response.result)
+//
+//        if let data = response.value {
+//
+//            guard let img = UIImage(data: data) else { return }
+//            imgg = img
+//            self.images.append(img)
+//
+//
+//
+//        }
+//
+//    }
+//    return imgg
+//
+//}
+
+
 

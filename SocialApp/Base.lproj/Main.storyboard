@@ -367,6 +367,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="BhL-Wf-RSw"/>
                     <connections>
+                        <outlet property="imageGridCollectionView" destination="MpP-d7-fLs" id="crX-kY-zgh"/>
                         <segue destination="Lgw-EG-sOd" kind="show" identifier="imageView" id="g8C-iO-Jzg"/>
                     </connections>
                 </collectionViewController>
