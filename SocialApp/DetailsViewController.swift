@@ -19,9 +19,7 @@ class DetailsViewController: UIViewController {
 @IBOutlet private var mapView: MKMapView!
     @IBOutlet weak var userImage: UIImageView! {
         didSet{
-            var img = #imageLiteral(resourceName: "scott")
             userImage.image = #imageLiteral(resourceName: "scott")
-            
         }
     }
 
@@ -45,83 +43,56 @@ class DetailsViewController: UIViewController {
     }
     var user:User? {
         didSet{
-            guard let user = user else { return }
-            
-            useName?.text = "Name: " + user.username
-            Email?.text = "Email" + user.email
-            phoneNumber?.text = "Phone Number" + user.phone
-            webSite?.text = "website: " + user.website
-            location?.text = "address: " + user.address.street + user.address.street
-
+            guard user != nil else { return }
         }
     }
     
     override func viewDidLoad() {
-
-        let latitude = ((user?.address.geo.lat ?? "-41.9") as NSString).doubleValue
         
-          let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
- 
+     super.viewDidLoad()
+       updateLabels()
+       setUpMap()
+       self.setupLabelTap()
+
+    }
+    
+    func setUpMap() {
+        let latitude = ((user?.address.geo.lat ?? "-41.9") as NSString).doubleValue
+        let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
         let userLocation = CLLocation(latitude:latitude,  longitude:   longitude);
-
         mapView.centerToLocation(userLocation)
+        var locationStr = user?.address.city ?? "" + " , " +  (user?.address.street ?? "")
         mapView.setUpMarker(latitude: latitude, long: longitude,
-                            address: user?.address.city ?? "" + " , " +  (user?.address.street ?? "")
-        )
-        phoneNumber.isUserInteractionEnabled = true
-        location.isUserInteractionEnabled = true
-
-        self.setupLabelTap()
-
+                            address: locationStr      )
+    }
+  
+    func updateLabels() {
+        
         useName?.text = "Name: " + (user?.username)!
         Email?.text = "Email:  " + (user?.email)!
         phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
         webSite?.text = "Website:  " + (user?.website)!
-        location?.text = "address: " + (user?.address.city)! + (user?.address.city)!
-        
-        
-
+        location?.text = "address: " + (user?.address.city)! + (user?.address.street)!
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-
-  
- 
-    
     @objc func labelTapped(_ sender: UITapGestureRecognizer) {
-          let email = "nura.qasrawi@gmail.com"
+        //  let email = "nura.qasrawi@gmail.com"
      //   if let url = URL(string: "mailto://\(email)") {
         if let url = URL(string: "tel://1800900900") {
-
           let application:UIApplication = UIApplication.shared
             if (application.canOpenURL(url)) {
                 application.open(url , options: [:], completionHandler: nil)
           }
         }
-
-    
-        
     }
-    
-       
+           
     func setupLabelTap() {
-        
         let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.labelTapped(_:)))
         self.phoneNumber.isUserInteractionEnabled = true
         self.phoneNumber.addGestureRecognizer(labelTap)
-  
-
-        
     }
 }
+
 extension MKMapView {
 
   func centerToLocation(

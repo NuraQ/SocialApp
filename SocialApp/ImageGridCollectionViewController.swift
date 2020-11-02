@@ -81,9 +81,6 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
                 }
             }
         }
-        
-        
-        
         // Configure the celli
         return cell
     }

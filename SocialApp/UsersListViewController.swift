@@ -105,9 +105,9 @@ class UsersListViewController: UITableViewController {
  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            usersDataSource.removeUserFromUserDefaults(at: indexPath)
+            usersDataSource.updateUserDefaults()
             UsersDataSource.users.remove(at: indexPath.row)
-            UsersDataSource.savedArray.remove(at: indexPath.row)
-
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -116,8 +116,6 @@ class UsersListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         rowSelected = indexPath.row
-        let indexPath = tableView.indexPathForSelectedRow
-
         performSegue(withIdentifier: "detailsSegue", sender: self)
     }
    
@@ -148,7 +146,6 @@ class UsersListViewController: UITableViewController {
             
       }
         print(filteredUsers)
-      
       tableVieww.reloadData()
     }}
 

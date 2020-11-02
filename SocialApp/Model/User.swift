@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User:Codable {
+struct User:Codable , Equatable {
 //  var userName: String?
 //  var email: String?
 //  var phoneNumber: String?
@@ -21,6 +21,12 @@ struct User:Codable {
        public let phone: String
        public let company: company
        public let address: address
+    
+    static func ==(lhs: User, rhs: User) -> Bool {
+        return lhs.name == rhs.name && lhs.email == rhs.email && lhs.id == rhs.id
+         && lhs.phone == rhs.phone
+    }
+    
 
 
 }

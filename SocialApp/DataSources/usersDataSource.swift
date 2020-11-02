@@ -38,8 +38,6 @@ class UsersDataSource: NSObject {
         UsersDataSource.generateUsersData(tableView: tableView)
         retrieveStoredData()
         appendStoredValuesToUsers()
-        
-        
     }
     
     // MARK: - Datasource Methods
@@ -64,16 +62,27 @@ class UsersDataSource: NSObject {
     }
     
     func append(user: User, to tableView: UITableView) {
-        let encoder = JSONEncoder()
         UsersDataSource.savedArray.append(user)
-        if let encoded = try? encoder.encode(UsersDataSource.savedArray){
-            UserDefaults.standard.set(encoded, forKey: "user_objects")
-            UsersDataSource.users.append(user)
-            tableView.insertRows(at: [IndexPath(row: UsersDataSource.users.count-1, section: 0)], with: .automatic)
-        }
+        UsersDataSource.users.append(user)
+        tableView.insertRows(at: [IndexPath(row: UsersDataSource.users.count-1, section: 0)], with: .automatic)
+        updateUserDefaults()
     }
     
     func userGet(at indexPath: IndexPath) -> User {
         UsersDataSource.users[indexPath.row]
+    }
+    
+    func updateUserDefaults (){
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(UsersDataSource.savedArray){
+        UserDefaults.standard.set(encoded, forKey: "user_objects")
+        }
+    }
+    
+    func removeUserFromUserDefaults (at index: IndexPath){
+        retrieveStoredData()
+        if UsersDataSource.savedArray.contains(UsersDataSource.users[index.row]){
+            UsersDataSource.savedArray.remove(at: UsersDataSource.savedArray.firstIndex(of: UsersDataSource.users[index.row])!)
+        }
     }
 }

@@ -29,10 +29,17 @@ class AddUserTableViewController: UITableViewController {
         }
         if userEnteredAllValues()
         {
-            Email.text!.isValidEmail() ?  performSegue = true :Email.displayWarning(warning: "please enter a valid email");
-              performSegue = false
+            if Email.text!.isValidEmail(){ performSegue = true }
+            else{
+                Email.displayWarning(warning: "please enter a valid email");
+                performSegue = false
+            }
 
-            phone.text!.isValidPhone() ? performSegue = true : phone.displayWarning(warning: "Enter a valid number"); performSegue = false
+            if phone.text!.isValidPhone(){ performSegue = true }
+            else{
+                phone.displayWarning(warning: "Enter a valid number");
+                performSegue = false
+            }
             
             
         } else{
@@ -73,21 +80,13 @@ class AddUserTableViewController: UITableViewController {
 extension String {
     
     public func isValidPhone()->Bool {
-        if self.isAllDigits() == true {
-            let phoneRegex = "[235689][0-9]{6}([0-9]{3})?"
+            let phoneRegex = "([+]?1+[-]?)?+([(]?+([0-9]{3})?+[)]?)?+[-]?+[0-9]{3}+[-]?+[0-9]{4}"
             let predicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
             return  predicate.evaluate(with: self)
-        }else {
-            return false
-        }
+      
     }
     
-    private func isAllDigits()->Bool {
-        let charcterSet  = NSCharacterSet(charactersIn: "+0123456789").inverted
-        let inputString = self.components(separatedBy: charcterSet)
-        let filtered = inputString.joined(separator: "")
-        return  self == filtered
-    }
+
     
     func isValidEmail() -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
