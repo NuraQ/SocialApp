@@ -16,31 +16,47 @@ class AddUserTableViewController: UITableViewController {
     @IBOutlet weak var zipCode: UITextField!
     @IBOutlet weak var city: UITextField!
     @IBOutlet weak var street: UITextField!
-    
+    @IBOutlet weak var latitude: UITextField!
+    @IBOutlet weak var llongitude: UITextField!
+    @IBOutlet weak var companyName: UITextField!
+    @IBOutlet weak var bs: UITextField!
+    @IBOutlet weak var catchPhrase: UITextField!
+    @IBOutlet weak var suite: UITextField!
     var newUser: User?
     
     // MARK: - Table view data source
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-
-        var performSegue = false
+        
+        var performSegue = true
         if identifier == "cancel"{
             return true
         }
         if userEnteredAllValues()
         {
-            if Email.text!.isValidEmail(){ performSegue = true }
+            if Email.text!.isValidEmail(){ }
             else{
                 Email.displayWarning(warning: "please enter a valid email");
                 performSegue = false
             }
-
-            if phone.text!.isValidPhone(){ performSegue = true }
+            
+            if phone.text!.isValidPhone(){ }
             else{
                 phone.displayWarning(warning: "Enter a valid number");
                 performSegue = false
             }
             
+            if latitude.text!.isValidLatitude(){ }
+            else{
+                latitude.displayWarning(warning: "Enter a valid latitude between  -90 , 90");
+                performSegue = false
+            }
+            
+            if llongitude.text!.isValidLongitude(){ }
+            else{
+                llongitude.displayWarning(warning: "Enter a valid latitude between  -180 , 180");
+                performSegue = false
+            }
             
         } else{
             showAlert()
@@ -53,24 +69,21 @@ class AddUserTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        newUser = User(name: userName.text ?? "" , id: 5, username: userName.text ?? "", email: Email.text ?? "", website: website.text ?? "", phone: phone.text ?? "", company: company(name: "sd", catchPhrase: "d", bs: "d") , address: address(street: street.text ?? "", zipcode: zipCode.text ?? "", suite: "", city: city.text ?? "", geo: geo(lat: "", lng: "")))
-    
- 
-        
+        newUser = User(name: userName.text ?? "" , id: 5, username: userName.text ?? "", email: Email.text ?? "", website: website.text ?? "", phone: phone.text ?? "", company: company(name: companyName.text ?? "", catchPhrase: catchPhrase.text ?? "", bs: bs.text ?? "") , address: address(street: street.text ?? "", zipcode: zipCode.text ?? "", suite: suite.text ?? "", city: city.text ?? "", geo: geo(lat: latitude.text ?? "", lng: llongitude.text ?? "")))
     }
     
     func showAlert() {
-
-        let Alert = UIAlertController(title: "Add user page", message: "duuude please enter all data!!", preferredStyle:  .alert)
         
+        let Alert = UIAlertController(title: "Add user page", message: "duuude please enter all data!!", preferredStyle:  .alert)
         let Action = UIAlertAction(title: "OK", style: .default, handler: {
             action in
         })
         Alert.addAction(Action)
         present(Alert, animated: true, completion: nil)
     }
+    
     func userEnteredAllValues() -> Bool {
-        if !(website.text!.isEmpty) && !(Email.text!.isEmpty) && !(phone.text!.isEmpty) && !(userName.text!.isEmpty) && !(zipCode.text!.isEmpty) && !(street.text!.isEmpty) && !(city.text!.isEmpty)
+        if !(website.text!.isEmpty) && !(Email.text!.isEmpty) && !(phone.text!.isEmpty) && !(userName.text!.isEmpty) && !(zipCode.text!.isEmpty) && !(street.text!.isEmpty) && !(city.text!.isEmpty) && !(latitude.text!.isEmpty) && !(llongitude.text!.isEmpty) && !(companyName.text!.isEmpty) && !(catchPhrase.text!.isEmpty) && !(bs.text!.isEmpty) && !(suite.text!.isEmpty)
         {return true}
         return false
     }
@@ -80,19 +93,30 @@ class AddUserTableViewController: UITableViewController {
 extension String {
     
     public func isValidPhone()->Bool {
-            let phoneRegex = "([+]?1+[-]?)?+([(]?+([0-9]{3})?+[)]?)?+[-]?+[0-9]{3}+[-]?+[0-9]{4}"
-            let predicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
-            return  predicate.evaluate(with: self)
-      
+        let phoneRegex = "([+]?1+[-]?)?+([(]?+([0-9]{3})?+[)]?)?+[-]?+[0-9]{3}+[-]?+[0-9]{4}"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return  predicate.evaluate(with: self)
+        
     }
-    
-
     
     func isValidEmail() -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
+        
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: self)
+    }
+    
+    func isValidLatitude()->Bool {
+        
+        let lat  =  (self as NSString).doubleValue
+        let valid = (lat > -90 && lat < 90) ?  true : false
+        return(valid)
+    }
+    
+    func isValidLongitude()->Bool {
+        let long  =  (self as NSString).doubleValue
+        let valid = (long > -180 && long < 180) ?  true : false
+        return(valid)
     }
 }
 

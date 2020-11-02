@@ -18,9 +18,7 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
                                              right: 20.0)
     private var selectedRow = 0
     private var selectedSection = 0
-    
-    var val = 0
-    
+        
     @IBOutlet var imageGridCollectionView: UICollectionView!
     lazy var imagesDataSource = ImagesDataSource(collectionImgs: self.imageGridCollectionView)
     override func viewDidLoad() {
