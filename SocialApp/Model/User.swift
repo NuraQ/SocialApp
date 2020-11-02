@@ -19,7 +19,9 @@ struct User:Codable {
        public let email: String
        public let website: String
        public let phone: String
-      public let company: company
+       public let company: company
+       public let address: address
+
 
 }
 struct company: Codable {
@@ -28,3 +30,19 @@ struct company: Codable {
     public let bs: String
     
 }
+
+struct address: Codable {
+    public let street: String
+    public let zipcode: String
+    public let suite: String
+    public let city: String
+    public let geo: geo
+
+    
+}
+
+struct geo: Codable {
+    public let lat: Int
+    public let lng: Int
+}
+

@@ -14,12 +14,14 @@ struct Image: Codable {
     public let id: Int
     public let albumId: Int
     public let url: String
-    
+
 }
 class ImagesDataSource: NSObject {
     
     var images:[UIImage] = []
     var galleries = [Int: [Image]]()
+    var fetchedImages = [Int: [UIImage]]()
+
     var imgs:[Image] = []
     
     init(collectionImgs: UICollectionView) {
@@ -63,7 +65,6 @@ class ImagesDataSource: NSObject {
             var gallery:[Image] = []
             
             for img in imgs {
-                
                 galleries[img.albumId]  = galleries[img.albumId] ?? []
                 gallery.append(img)
                 galleries[img.albumId] = gallery
@@ -74,26 +75,15 @@ class ImagesDataSource: NSObject {
         print("yea")
         
     }
-    func getImage(imageURL: String) -> UIImage? {
-        var img:UIImage?
-        //      guard let url = dic["url"] as? URLConvertible else { return }
-        AF.request("https://via.placeholder.com/600/24f355" ,method: .get, encoding: JSONEncoding.default).responseData { response in
-            //print(response.result)
-            
-            if let data = response.value {
-                
-                guard let img = UIImage(data: data) else { return }
-                self.images.append(img)
-                
-                
-                
-            }
-            
-        }
-        return img
-        
+    
+    func appendToFetchedImgs(indexPath: IndexPath, img:UIImage) {
+        var gallery:[UIImage] = []
+        fetchedImages[indexPath.section]  = fetchedImages[indexPath.section] ?? []
+        gallery.append(img)
+        fetchedImages[indexPath.section] = gallery
     }
     
+
 }
 //func fetchData ()  -> UIImage {
 //    var imgg:UIImage = #imageLiteral(resourceName: "Msn_messenger_logo")

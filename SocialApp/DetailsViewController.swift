@@ -7,8 +7,7 @@
 //
 
 import UIKit
-
-
+import MapKit
 class DetailsViewController: UIViewController {
     
     
@@ -16,6 +15,8 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var Email: UILabel!
     @IBOutlet weak var webSite: UILabel!
+    @IBOutlet weak var location: UILabel!
+@IBOutlet private var mapView: MKMapView!
     @IBOutlet weak var userImage: UIImageView! {
         didSet{
             var img = #imageLiteral(resourceName: "scott")
@@ -23,11 +24,20 @@ class DetailsViewController: UIViewController {
             
         }
     }
+
+    let MapView: MKMapView = {
+        let map = MKMapView()
+        map.isZoomEnabled = false
+        map.isScrollEnabled = false
+        map.isUserInteractionEnabled = false
+        return map
+
+    }()
+
     //phoneNumber.is = true
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        //
         userImage.clipsToBounds = true
         userImage.layer.borderWidth = 3;
         userImage.layer.borderColor =  UIColor.lightGray.cgColor
@@ -41,17 +51,29 @@ class DetailsViewController: UIViewController {
             Email?.text = "Email" + user.email
             phoneNumber?.text = "Phone Number" + user.phone
             webSite?.text = "website: " + user.website
+            location?.text = "addreaa: " + user.address.city
+
         }
     }
     
     override func viewDidLoad() {
+        // Set initial location in Honolulu
+        
+       // let userLocation = CLLocation(latitude: user?.address.geo.lat ?? 21.4765, longitude: user?.address.geo.lng ?? -157.9647);
+       // mapView.centerToLocation(userLocation)
         phoneNumber.isUserInteractionEnabled = true
+        location.isUserInteractionEnabled = true
+
         self.setupLabelTap()
 
         useName?.text = "Name: " + (user?.username)!
         Email?.text = "Email:  " + (user?.email)!
         phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
         webSite?.text = "Website:  " + (user?.website)!
+        location?.text = "addreaa: " + (user?.address.city)!
+        
+        
+
     }
     
     /*
@@ -88,22 +110,39 @@ class DetailsViewController: UIViewController {
         
     }
     
+        @objc func mapTapped(_ sender: UITapGestureRecognizer) {
+           if let url = URL(string: "http://maps.apple.com/maps?saddr=\(user?.address.geo.lat)&daddr=\(user?.address.geo.lng)")
+           {
+            let application:UIApplication = UIApplication.shared
+                       if (application.canOpenURL(url)) {
+                           application.open(url , options: [:], completionHandler: nil)
+                     }
+            }
+            
+        }
     func setupLabelTap() {
         
         let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.labelTapped(_:)))
+        let map = UITapGestureRecognizer(target: self, action: #selector(self.mapTapped(_:)))
+
         self.phoneNumber.isUserInteractionEnabled = true
         self.phoneNumber.addGestureRecognizer(labelTap)
+        self.location.isUserInteractionEnabled = true
+        self.location.addGestureRecognizer(map)
+
         
     }
 }
-//extension DetailsViewController: WKNavigationDelegate {
-//
-//        if (scheme.lowercased() == "mailto") {
-//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//            // here I decide to .cancel, do as you wish
-//            decisionHandler(.cancel)
-//            return
-//        }
-//        decisionHandler(.allow)
-//    }
-//}
+extension MKMapView {
+
+  func centerToLocation(
+    _ location: CLLocation,
+    regionRadius: CLLocationDistance = 1000
+  ) {
+    let coordinateRegion = MKCoordinateRegion(
+      center: location.coordinate,
+      latitudinalMeters: regionRadius,
+      longitudinalMeters: regionRadius)
+    setRegion(coordinateRegion, animated: true)
+  }
+}

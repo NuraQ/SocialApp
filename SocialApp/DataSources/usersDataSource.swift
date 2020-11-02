@@ -16,18 +16,6 @@ struct Response: Codable {
     
     
 }
-struct address: Codable {
-    public let street: String
-    public let zipcode: String
-    public let suite: String
-    public let city: String
-    
-    
-}
-struct geo: Codable {
-    public let lat: String
-    public let lng: String
-}
 
 
 
