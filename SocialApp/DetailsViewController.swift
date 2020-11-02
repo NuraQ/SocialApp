@@ -21,6 +21,7 @@ class DetailsViewController: UIViewController {
         didSet{
             var img = #imageLiteral(resourceName: "scott")
             userImage.image = #imageLiteral(resourceName: "scott")
+            
         }
     }
 
@@ -45,14 +46,39 @@ class DetailsViewController: UIViewController {
     var user:User? {
         didSet{
             guard let user = user else { return }
+            
+            useName?.text = "Name: " + user.username
+            Email?.text = "Email" + user.email
+            phoneNumber?.text = "Phone Number" + user.phone
+            webSite?.text = "website: " + user.website
+            location?.text = "address: " + user.address.street + user.address.street
+
         }
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpMap()
+
+        let latitude = ((user?.address.geo.lat ?? "-41.9") as NSString).doubleValue
+        
+          let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
+ 
+        let userLocation = CLLocation(latitude:latitude,  longitude:   longitude);
+
+        mapView.centerToLocation(userLocation)
+        mapView.setUpMarker(latitude: latitude, long: longitude,
+                            address: user?.address.city ?? "" + " , " +  (user?.address.street)!  )
+        phoneNumber.isUserInteractionEnabled = true
+        location.isUserInteractionEnabled = true
+
         self.setupLabelTap()
-        updateLabels()
+
+        useName?.text = "Name: " + (user?.username)!
+        Email?.text = "Email:  " + (user?.email)!
+        phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
+        webSite?.text = "Website:  " + (user?.website)!
+        location?.text = "address: " + (user?.address.city)! + (user?.address.city)!
+        
+        
 
     }
     
@@ -65,23 +91,7 @@ class DetailsViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    func setUpMap() {
-        let latitude = ((user?.address.geo.lat ?? "-41.9") as NSString).doubleValue
-        let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
-        let userLocation = CLLocation(latitude:latitude,  longitude:   longitude);
-        var strLocation = (user?.address.city)! + "," + (user?.address.street)!
-        mapView.centerToLocation(userLocation)
-        mapView.setUpMarker(latitude: latitude, long: longitude,
-                            address: strLocation  )
-    }
-    
-    func updateLabels() {
-        useName?.text = "Name: " + (user?.username)!
-        Email?.text = "Email:  " + (user?.email)!
-        phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
-        webSite?.text = "Website:  " + (user?.website)!
-        location?.text = "address: " + (user?.address.city)! + "," + (user?.address.street)!
-    }
+
   
  
     
@@ -95,6 +105,18 @@ class DetailsViewController: UIViewController {
                 application.open(url , options: [:], completionHandler: nil)
           }
         }
+//        if MFMailComposeViewController.canSendMail() {
+//               let mail = MFMailComposeViewController()
+//               mail.mailComposeDelegate = self
+//               mail.setToRecipients(["you@yoursite.com"])
+//               mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
+//
+//               present(mail, animated: true)
+//           } else {
+//               // show failure alert
+//           }
+    
+        
     }
     
        
