@@ -43,7 +43,7 @@ class AddUserTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if !(website.text!.isEmpty) && !(Email.text!.isEmpty) && !(phone.text!.isEmpty) && !(userName.text!.isEmpty) {
-             newUser = User(name: userName.text ?? "" , id: 5, username: userName.text ?? "", email: Email.text ?? "", website: website.text ?? "", phone: phone.text ?? "", company: company(name: "sd", catchPhrase: "d", bs: "d") , address: address(street: "", zipcode: "", suite: "", city: "", geo: geo(lat: 0, lng: 0)))
+             newUser = User(name: userName.text ?? "" , id: 5, username: userName.text ?? "", email: Email.text ?? "", website: website.text ?? "", phone: phone.text ?? "", company: company(name: "sd", catchPhrase: "d", bs: "d") , address: address(street: "", zipcode: "", suite: "", city: "", geo: geo(lat: "", lng: "")))
            // UsersDataSource.append(user: newUser, to: tableVieww )
         }
             //else {

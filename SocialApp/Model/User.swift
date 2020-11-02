@@ -42,7 +42,7 @@ struct address: Codable {
 }
 
 struct geo: Codable {
-    public let lat: Int
-    public let lng: Int
+    public let lat: String
+    public let lng: String
 }
 
