@@ -11,13 +11,13 @@ import MapKit
 class DetailsViewController: UIViewController , UIScrollViewDelegate{
     
     
-   
     @IBOutlet weak var useName: UILabel!
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var Email: UILabel!
     @IBOutlet weak var webSite: UILabel!
     @IBOutlet weak var location: UILabel!
     @IBOutlet private var mapView: MKMapView!
+    @IBOutlet weak var company: UILabel!
     @IBOutlet weak var userImage: UIImageView! {
         didSet{
             userImage.image = #imageLiteral(resourceName: "scott")
@@ -70,11 +70,14 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
     
     func updateLabels() {
         
+        var strLocation = "address: city" + (user?.address.city)! + "  street: " +  (user?.address.street)!
         useName?.text = "Name: " + (user?.username)!
         Email?.text = "Email:  " + (user?.email)!
         phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
         webSite?.text = "Website:  " + (user?.website)!
-        location?.text = "address: " + (user?.address.city)! + (user?.address.street)!
+        location?.text = strLocation + " suite: \((user?.address.suite)!)"
+        company?.text = "Company: " + (user?.company.name)! + (user?.company.catchPhrase)! + (user?.company.bs)!
+
     }
     
     @objc func labelTapped(_ sender: UITapGestureRecognizer) {
@@ -116,5 +119,26 @@ extension MKMapView {
         annotation.coordinate = centerCoordinate
         annotation.title = address
         self.addAnnotation(annotation)
+    }
+    
+}
+
+extension UILabel {
+    func addTrailing(image: UIImage) {
+        let attachment = NSTextAttachment()
+        attachment.image = image
+
+        let attachmentString = NSAttributedString(attachment: attachment)
+        let string = NSMutableAttributedString(string: self.text!, attributes: [:])
+
+        string.append(attachmentString)
+        self.attributedText = string
+    }
+    func addImg(){
+        let img:UIImage = #imageLiteral(resourceName: "icons8-user-50")
+                    var bgImage: UIImageView?
+                    bgImage = UIImageView(image: img)
+                     bgImage!.frame = CGRect(x: 0,y: 0,width: 20,height: 20)
+                    self.addSubview(bgImage!)
     }
 }
