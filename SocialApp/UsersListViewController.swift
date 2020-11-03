@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UsersListViewController: UITableViewController {
+class UsersListViewController: UITableViewController, UISearchControllerDelegate {
   lazy  var usersDataSource = UsersDataSource(tableView: tableVieww)
     
     var rowSelected = 0
@@ -32,43 +32,37 @@ class UsersListViewController: UITableViewController {
        
     }
 
+  
         func initializeSearchBar() {
-            searchController.searchResultsUpdater = self
+          //  tableView.tableHeaderView = searchController.searchBar
+
+            searchController.delegate = self
             searchController.obscuresBackgroundDuringPresentation = false
             searchController.searchBar.placeholder = "Search Users"
-            navigationItem.searchController = nil
-            //tableView.tableHeaderView = searchController.searchBar
-            navigationItem.searchController?.searchBar.isHidden = true;
-            definesPresentationContext = true
-            self.tableView.tableHeaderView = nil;
-            
-        }
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let height = scrollView.frame.size.height
-        let contentYoffset = scrollView.contentOffset.y
-        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
-        if distanceFromBottom < height {
-            navigationItem.searchController?.searchBar.isHidden = false;
+            searchController.searchResultsUpdater = self
+            searchController.showsSearchResultsController = true
             navigationItem.searchController = searchController
-            navigationItem.hidesSearchBarWhenScrolling = false
-            
-        } else {
-            navigationItem.searchController?.searchBar.isHidden = true;
-            navigationItem.hidesSearchBarWhenScrolling = true
+            searchController.searchBar.isHidden = true
         }
-    }
+    
 
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+                    searchController.searchBar.isHidden = false
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
-           self.tableView.estimatedRowHeight = 700 // for example. Set your average height
+           self.tableView.estimatedRowHeight = 700
          self.tableView.rowHeight = UITableView.automaticDimension
         if let indexPath = tableView.indexPathForSelectedRow {
                tableView.deselectRow(at: indexPath, animated: true)
              }
          self.tableView.reloadData()
+       // navigationItem.hidesSearchBarWhenScrolling = true
+
+        
     }
     @IBOutlet var tableVieww: UITableView!
     // MARK: - Table view data source
-  //  let savedArray = defaults.object(forKey: "SavedArray") as? [String] ?? [String]()
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
