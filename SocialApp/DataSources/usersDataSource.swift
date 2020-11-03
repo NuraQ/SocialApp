@@ -6,11 +6,10 @@ import UIKit
 class UsersDataSource: NSObject {
     // MARK: - Properties
     static  var users: [User] = []
+    //contains the extra saved users
     static  var savedArray: [User] = []
     let defaults = UserDefaults.standard
-    
-    //  private var results:[Result<Any, <#Failure: Error#>>]
-    
+        
     static func generateUsersData(tableView: UITableView)  {
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else {
             print("Invalid URL")
@@ -45,8 +44,9 @@ class UsersDataSource: NSObject {
         UsersDataSource.users.count
     }
     
+    //retreive data in usersDefaults
     func retrieveStoredData () {
-        if let objects = UserDefaults.standard.value(forKey: "user_objects") as? Data {
+        if let objects = UserDefaults.standard.value(forKey: "user_saved") as? Data {
             let decoder = JSONDecoder()
             if let obj = try? decoder.decode(Array.self, from: objects) as [User]{
                 UsersDataSource.savedArray = obj
@@ -75,7 +75,7 @@ class UsersDataSource: NSObject {
     func updateUserDefaults (){
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(UsersDataSource.savedArray){
-        UserDefaults.standard.set(encoded, forKey: "user_objects")
+        UserDefaults.standard.set(encoded, forKey: "user_saved")
         }
     }
     

@@ -37,11 +37,8 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
     //phoneNumber.is = true
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        userImage.clipsToBounds = true
-        userImage.layer.borderWidth = 3;
-        userImage.layer.borderColor =  UIColor.lightGray.cgColor
-        userImage.layer.cornerRadius = userImage.frame.size.width / 2.0 ;
+        makeImgCircular()
+       
     }
     var user:User? {
         didSet{
@@ -58,6 +55,13 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
         
     }
     
+    func makeImgCircular(){
+        userImage.clipsToBounds = true
+        userImage.layer.borderWidth = 3;
+        userImage.layer.borderColor =  UIColor.lightGray.cgColor
+        userImage.layer.cornerRadius = userImage.frame.size.width / 2.0 ;
+    }
+    
     func setUpMap() {
         let latitude = ((user?.address.geo.lat ?? "-41.9") as NSString).doubleValue
         let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
@@ -70,7 +74,7 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
     
     func updateLabels() {
         
-        var strLocation = "address: city" + (user?.address.city)! + "  street: " +  (user?.address.street)!
+        let strLocation = "address: city" + (user?.address.city)! + "  street: " +  (user?.address.street)!
         useName?.text = "Name: " + (user?.username)!
         Email?.text = "Email:  " + (user?.email)!
         phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
@@ -123,22 +127,4 @@ extension MKMapView {
     
 }
 
-extension UILabel {
-    func addTrailing(image: UIImage) {
-        let attachment = NSTextAttachment()
-        attachment.image = image
 
-        let attachmentString = NSAttributedString(attachment: attachment)
-        let string = NSMutableAttributedString(string: self.text!, attributes: [:])
-
-        string.append(attachmentString)
-        self.attributedText = string
-    }
-    func addImg(){
-        let img:UIImage = #imageLiteral(resourceName: "icons8-user-50")
-                    var bgImage: UIImageView?
-                    bgImage = UIImageView(image: img)
-                     bgImage!.frame = CGRect(x: 0,y: 0,width: 20,height: 20)
-                    self.addSubview(bgImage!)
-    }
-}

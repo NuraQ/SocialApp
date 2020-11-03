@@ -637,11 +637,21 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECTION HERE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="px6-LJ-n53">
+                                    <rect key="frame" x="153" y="8" width="118" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="px6-LJ-n53" secondAttribute="bottom" constant="21" id="AKA-Zm-Dmg"/>
                                 <constraint firstAttribute="bottomMargin" secondItem="Nr7-4p-7g6" secondAttribute="bottom" id="Bs1-P1-xar"/>
+                                <constraint firstItem="px6-LJ-n53" firstAttribute="top" secondItem="PjC-bc-kq7" secondAttribute="top" constant="8" id="CMH-fd-oY5"/>
                                 <constraint firstItem="Nr7-4p-7g6" firstAttribute="top" secondItem="PjC-bc-kq7" secondAttribute="topMargin" id="CWz-lj-QAz"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="px6-LJ-n53" secondAttribute="trailing" symbolic="YES" id="Crp-Ud-lVY"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="Nr7-4p-7g6" secondAttribute="trailing" id="ZuA-VX-BI6"/>
+                                <constraint firstItem="px6-LJ-n53" firstAttribute="leading" secondItem="PjC-bc-kq7" secondAttribute="leading" constant="153" id="r12-DU-i4o"/>
                                 <constraint firstItem="Nr7-4p-7g6" firstAttribute="leading" secondItem="PjC-bc-kq7" secondAttribute="leadingMargin" id="uob-Gb-b4g"/>
                             </constraints>
                         </collectionReusableView>
@@ -652,13 +662,14 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="BhL-Wf-RSw"/>
                     <connections>
+                        <outlet property="collectionView" destination="MpP-d7-fLs" id="Uzd-ij-Lr0"/>
                         <outlet property="imageGridCollectionView" destination="MpP-d7-fLs" id="crX-kY-zgh"/>
                         <segue destination="Lgw-EG-sOd" kind="show" identifier="imageView" id="g8C-iO-Jzg"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YO9-HB-F92" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-65" y="850"/>
+            <point key="canvasLocation" x="-65.217391304347828" y="849.77678571428567"/>
         </scene>
     </scenes>
     <resources>

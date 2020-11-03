@@ -69,11 +69,12 @@ class AddUserTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        newUser = User(name: userName.text ?? "" , id: 5, username: userName.text ?? "", email: Email.text ?? "", website: website.text ?? "", phone: phone.text ?? "", company: company(name: companyName.text ?? "", catchPhrase: catchPhrase.text ?? "", bs: bs.text ?? "") , address: address(street: street.text ?? "", zipcode: zipCode.text ?? "", suite: suite.text ?? "", city: city.text ?? "", geo: geo(lat: latitude.text ?? "", lng: llongitude.text ?? "")))
+        let companyy = company(name: companyName.text ?? "", catchPhrase: catchPhrase.text ?? "", bs: bs.text ?? "")
+        let location = address(street: street.text ?? "", zipcode: zipCode.text ?? "", suite: suite.text ?? "", city: city.text ?? "", geo: geo(lat: latitude.text ?? "", lng: llongitude.text ?? ""))
+        newUser = User(name: userName.text ?? "" , id: 5, username: userName.text ?? "", email: Email.text ?? "", website: website.text ?? "", phone: phone.text ?? "", company: companyy , address:location )
     }
     
     func showAlert() {
-        
         let Alert = UIAlertController(title: "Add user page", message: "duuude please enter all data!!", preferredStyle:  .alert)
         let Action = UIAlertAction(title: "OK", style: .default, handler: {
             action in

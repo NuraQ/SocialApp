@@ -18,10 +18,8 @@ struct Image: Codable {
 }
 class ImagesDataSource: NSObject {
     
-    var images:[UIImage] = []
-    var galleries = [Int: [Image]]()
-    var fetchedImages = [Int: [UIImage]]()
     
+    var galleries = [Int: [Image]]()
     var imgs:[Image] = []
     
     init(collectionImgs: UICollectionView) {
@@ -49,27 +47,15 @@ class ImagesDataSource: NSObject {
         
     }
     
+    //sorts images based on albumID , uses dictionary to do that
     func imgsSort() {
         var gallery:[Image] = []
-        
         for img in imgs {
             galleries[img.albumId]  = galleries[img.albumId] ?? []
             gallery.append(img)
             galleries[img.albumId] = gallery
         }
-        
     }
-    // print( galleries[2]!)
-    
-    
-    func appendToFetchedImgs(indexPath: IndexPath, img:UIImage) {
-        var gallery:[UIImage] = []
-        fetchedImages[indexPath.section]  = fetchedImages[indexPath.section] ?? []
-        gallery.append(img)
-        fetchedImages[indexPath.section]! += [img]
-    }
-    
-    
 }
 
 

@@ -18,7 +18,14 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
                                              right: 20.0)
     private var selectedRow = 0
     private var selectedSection = 0
-        
+    @IBOutlet  var collectionVieww: UICollectionView! {
+        didSet {
+            collectionVieww.dataSource = self
+            collectionVieww.delegate = self
+
+        }
+    }
+    
     @IBOutlet var imageGridCollectionView: UICollectionView!
     lazy var imagesDataSource = ImagesDataSource(collectionImgs: self.imageGridCollectionView)
     override func viewDidLoad() {
@@ -26,6 +33,7 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+       
         collectionView.allowsMultipleSelection = false
         // Register cell classes
         let cellNib = UINib(nibName: "GridCollectionViewCell", bundle: nil)
@@ -58,19 +66,17 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
             withReuseIdentifier: "GridCollectionViewCell" , for: indexPath
             ) as? GridCollectionViewCell ?? Bundle.main.loadNibNamed("GridCollectionViewCell", owner: self,options: nil)?.first as! GridCollectionViewCell
         
-        let x = imagesDataSource.galleries[indexPath.section + 1]
+        let gallery = imagesDataSource.galleries[indexPath.section + 1]
         //imagesDataSource.getImage(imageURL: "")
-        if x?.indices.contains(indexPath.row) ?? false {
-            if let url = URL(string: x?[indexPath.row].url ?? "" ) {
-                
+        if gallery?.indices.contains(indexPath.row) ?? false {
+            if let url = URL(string: gallery?[indexPath.row].url ?? "" ) {
+
                 DispatchQueue.global(qos: .background).async {
                     
                     if let data = try? Data(contentsOf: url)
                     {
                         let image: UIImage = UIImage(data: data)!
-                        self.imagesDataSource.appendToFetchedImgs(indexPath: indexPath, img: image)
-                      //  self.imagesDataSource.fetchedImages[indexPath.section + 1]?.append(image)
-                        self.imagesDataSource.images.append(image)
+                        //self.imagesDataSource.appendToFetchedImgs(indexPath: indexPath, img: image)
                         DispatchQueue.main.sync {
                             cell.gridImage?.image = image
                             
@@ -102,7 +108,9 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
-    
+    // Create a standard header that includes the returned text.
+  
+
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -120,22 +128,18 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
             let imageScene = segue.destination as? ImageViewController {
         
             let selectedImageUrl = imagesDataSource.galleries[selectedSection + 1]?[selectedRow].url
-            var selectedImage:UIImage = #imageLiteral(resourceName: "photo-gallery-icon_1948830")
             if let url = URL(string:selectedImageUrl ?? "" ) {
-                
                     if let data = try? Data(contentsOf: url)
                     {
                         let image: UIImage = UIImage(data: data)!
-                    
-                        self.imagesDataSource.images.append(image)
-                         //imageScene.img = image
                         imageScene.img = image
                     }
-
-                
             }
             print(selectedRow)
         }
     }
     
 }
+
+
+// MARK: - UITableViewDelegate
