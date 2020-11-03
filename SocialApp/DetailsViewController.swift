@@ -8,34 +8,36 @@
 
 import UIKit
 import MapKit
-class DetailsViewController: UIViewController {
+class DetailsViewController: UIViewController , UIScrollViewDelegate{
     
     
+   
     @IBOutlet weak var useName: UILabel!
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var Email: UILabel!
     @IBOutlet weak var webSite: UILabel!
     @IBOutlet weak var location: UILabel!
-@IBOutlet private var mapView: MKMapView!
+    @IBOutlet private var mapView: MKMapView!
     @IBOutlet weak var userImage: UIImageView! {
         didSet{
             userImage.image = #imageLiteral(resourceName: "scott")
         }
     }
-
+    
     let MapView: MKMapView = {
         let map = MKMapView()
         map.isZoomEnabled = false
         map.isScrollEnabled = false
         map.isUserInteractionEnabled = false
         return map
-
+        
     }()
-
+    @IBOutlet weak var contentView: UIView!
+    
     //phoneNumber.is = true
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         userImage.clipsToBounds = true
         userImage.layer.borderWidth = 3;
         userImage.layer.borderColor =  UIColor.lightGray.cgColor
@@ -49,11 +51,11 @@ class DetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         
-     super.viewDidLoad()
-       updateLabels()
-       setUpMap()
-       self.setupLabelTap()
-
+        super.viewDidLoad()
+        updateLabels()
+        setUpMap()
+        self.setupLabelTap()
+        
     }
     
     func setUpMap() {
@@ -61,11 +63,11 @@ class DetailsViewController: UIViewController {
         let longitude = ((user?.address.geo.lng ?? "-150.0") as NSString).doubleValue
         let userLocation = CLLocation(latitude:latitude,  longitude:   longitude);
         mapView.centerToLocation(userLocation)
-        var locationStr = user?.address.city ?? "" + " , " +  (user?.address.street ?? "")
+        let locationStr = user?.address.city ?? "" + " , " +  (user?.address.street ?? "")
         mapView.setUpMarker(latitude: latitude, long: longitude,
                             address: locationStr      )
     }
-  
+    
     func updateLabels() {
         
         useName?.text = "Name: " + (user?.username)!
@@ -77,15 +79,15 @@ class DetailsViewController: UIViewController {
     
     @objc func labelTapped(_ sender: UITapGestureRecognizer) {
         //  let email = "nura.qasrawi@gmail.com"
-     //   if let url = URL(string: "mailto://\(email)") {
+        //   if let url = URL(string: "mailto://\(email)") {
         if let url = URL(string: "tel://1800900900") {
-          let application:UIApplication = UIApplication.shared
+            let application:UIApplication = UIApplication.shared
             if (application.canOpenURL(url)) {
                 application.open(url , options: [:], completionHandler: nil)
-          }
+            }
         }
     }
-           
+    
     func setupLabelTap() {
         let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.labelTapped(_:)))
         self.phoneNumber.isUserInteractionEnabled = true
@@ -94,23 +96,23 @@ class DetailsViewController: UIViewController {
 }
 
 extension MKMapView {
-
-  func centerToLocation(
-    _ location: CLLocation,
-    regionRadius: CLLocationDistance = 1000
-  ) {
-    let coordinateRegion = MKCoordinateRegion(
-      center: location.coordinate,
-      latitudinalMeters: regionRadius,
-      longitudinalMeters: regionRadius)
-    setRegion(coordinateRegion, animated: true)
-  }
+    
+    func centerToLocation(
+        _ location: CLLocation,
+        regionRadius: CLLocationDistance = 1000
+    ) {
+        let coordinateRegion = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: regionRadius,
+            longitudinalMeters: regionRadius)
+        setRegion(coordinateRegion, animated: true)
+    }
 }
 
 extension MKMapView {
     func setUpMarker(latitude: Double, long: Double, address:String) {
         let annotation = MKPointAnnotation()
-         let centerCoordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude:CLLocationDegrees(long))
+        let centerCoordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude:CLLocationDegrees(long))
         annotation.coordinate = centerCoordinate
         annotation.title = address
         self.addAnnotation(annotation)

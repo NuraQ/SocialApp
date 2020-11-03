@@ -101,22 +101,32 @@ extension String {
     
     func isValidEmail() -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: self)
     }
     
     func isValidLatitude()->Bool {
-        
+        if self.isAllDigits(){
         let lat  =  (self as NSString).doubleValue
         let valid = (lat > -90 && lat < 90) ?  true : false
         return(valid)
+        }
+        return false
     }
     
+    private func isAllDigits()->Bool {
+           let charcterSet  = NSCharacterSet(charactersIn: "+0123456789").inverted
+           let inputString = self.components(separatedBy: charcterSet)
+           let filtered = inputString.joined(separator: "")
+           return  self == filtered
+       }
     func isValidLongitude()->Bool {
+        if self.isAllDigits(){
         let long  =  (self as NSString).doubleValue
         let valid = (long > -180 && long < 180) ?  true : false
         return(valid)
+        }
+        return false
     }
 }
 
