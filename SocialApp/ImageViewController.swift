@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController , UIGestureRecognizerDelegate {
 
     @IBOutlet weak var image: UIImageView! {
         didSet {
@@ -16,7 +16,7 @@ class ImageViewController: UIViewController {
         }
     }
     
-    
+    var tabBarState = true
     var img:UIImage?
     
     override func viewDidLoad() {
@@ -26,15 +26,21 @@ class ImageViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self,
         action: #selector(onTap(_:)))
-        image.addGestureRecognizer(tapGesture)
+        tapGesture.delegate = self
+        self.view.addGestureRecognizer(tapGesture)
 
     }
     
    @objc func onTap(_ gesture: UIGestureRecognizer) {
       if (gesture.state == .ended) {
         /* action */
-        print("sdefw")
+        self.tabBarController?.tabBar.isHidden = toggleTabBar()
       }
+    }
+    
+    func toggleTabBar() -> Bool {
+        tabBarState = !tabBarState
+        return tabBarState
     }
    
 
