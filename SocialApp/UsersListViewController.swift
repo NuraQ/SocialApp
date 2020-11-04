@@ -34,7 +34,6 @@ class UsersListViewController: UITableViewController, UISearchControllerDelegate
 
   
         func initializeSearchBar() {
-          //  tableView.tableHeaderView = searchController.searchBar
 
             searchController.delegate = self
             searchController.obscuresBackgroundDuringPresentation = false

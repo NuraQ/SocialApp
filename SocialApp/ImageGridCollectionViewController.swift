@@ -37,8 +37,9 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
         collectionView.allowsMultipleSelection = false
         // Register cell classes
         let cellNib = UINib(nibName: "GridCollectionViewCell", bundle: nil)
-        self.collectionView!.register(cellNib, forCellWithReuseIdentifier: "GridCollectionViewCell")
-        
+        let headerView = UINib(nibName: "HeaderCollectionView", bundle: nil)
+        self.collectionView?.register(cellNib, forCellWithReuseIdentifier: "GridCollectionViewCell")
+      collectionView.register(headerView, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         // Do any additional setup after loading the view.
     }
     
@@ -51,13 +52,8 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        let sections = imagesDataSource.galleries.count
-        for sectionNumber in 0..<sections {
-            if sectionNumber == section {
-                return imagesDataSource.galleries[sectionNumber]?.count ?? imagesDataSource.galleries.count
-            }
-        }
-        return imagesDataSource.imgs.count
+  
+        return imagesDataSource.galleries[section + 1]?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -109,8 +105,7 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
         return sectionInsets.left
     }
     // Create a standard header that includes the returned text.
-  
-
+    
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -141,5 +136,34 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
     
 }
 
+extension ImageGridCollectionViewController {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 viewForSupplementaryElementOfKind kind: String,
+                                 at indexPath: IndexPath) -> UICollectionReusableView {
+      // 1
+      switch kind {
+      // 2
+      case UICollectionView.elementKindSectionHeader:
+        // 3
+        guard
+          let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: "header",
+            for: indexPath) as? HeaderCollectionView
+          else {
+            fatalError("Invalid view type")
+        }
+        headerView.setHeadertext(header: "Gallery \(indexPath.section + 1)")
 
+        return headerView
+       
+      default:
+        // 4
+        assert(false, "Invalid element type")
+      }
+
+
+    }
+
+}
 // MARK: - UITableViewDelegate

@@ -51,7 +51,7 @@ class ImagesDataSource: NSObject {
     func imgsSort() {
         var gallery:[Image] = []
         for img in imgs {
-            galleries[img.albumId]  = galleries[img.albumId] ?? []
+            gallery  = galleries[img.albumId] ?? []
             gallery.append(img)
             galleries[img.albumId] = gallery
         }

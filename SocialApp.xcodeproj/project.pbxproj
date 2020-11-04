@@ -26,6 +26,8 @@
 		16540B84254884300052AF00 /* Pods_SocialApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D77D28364AF1202F316362 /* Pods_SocialApp.framework */; };
 		16540B85254884300052AF00 /* Pods_SocialApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65D77D28364AF1202F316362 /* Pods_SocialApp.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		16540B8C254B064D0052AF00 /* AddUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16540B8B254B064D0052AF00 /* AddUserTableViewController.swift */; };
+		16C5B4DC2552122600EB4D5A /* HeaderCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C5B4DA2552122600EB4D5A /* HeaderCollectionView.swift */; };
+		16C5B4DD2552122600EB4D5A /* HeaderCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16C5B4DB2552122600EB4D5A /* HeaderCollectionView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +64,8 @@
 		16540B802546F40A0052AF00 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		16540B82254868E70052AF00 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		16540B8B254B064D0052AF00 /* AddUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddUserTableViewController.swift; path = /Users/asal3/Task3/SocialApp/SocialApp/AddUserTableViewController.swift; sourceTree = "<absolute>"; };
+		16C5B4DA2552122600EB4D5A /* HeaderCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HeaderCollectionView.swift; path = Pods/HeaderCollectionView.swift; sourceTree = SOURCE_ROOT; };
+		16C5B4DB2552122600EB4D5A /* HeaderCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HeaderCollectionView.xib; path = Pods/HeaderCollectionView.xib; sourceTree = SOURCE_ROOT; };
 		65D77D28364AF1202F316362 /* Pods_SocialApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A33C90CB265C379B9F4883 /* Pods-SocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialApp.debug.xcconfig"; path = "Target Support Files/Pods-SocialApp/Pods-SocialApp.debug.xcconfig"; sourceTree = "<group>"; };
 		9FC58691FFDF47B0F090501B /* Pods-SocialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialApp.release.xcconfig"; path = "Target Support Files/Pods-SocialApp/Pods-SocialApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 		16540B6D2545E4450052AF00 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				16C5B4DA2552122600EB4D5A /* HeaderCollectionView.swift */,
+				16C5B4DB2552122600EB4D5A /* HeaderCollectionView.xib */,
 				16540B7A2546D4CB0052AF00 /* GridCollectionViewCell.swift */,
 				16540B7B2546D4CB0052AF00 /* GridCollectionViewCell.xib */,
 				16540B72254624DF0052AF00 /* UserTableViewCell.swift */,
@@ -233,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16540B75254624DF0052AF00 /* UserTableViewCell.xib in Resources */,
+				16C5B4DD2552122600EB4D5A /* HeaderCollectionView.xib in Resources */,
 				16540B572545A6540052AF00 /* LaunchScreen.storyboard in Resources */,
 				16540B542545A6540052AF00 /* Assets.xcassets in Resources */,
 				16540B7D2546D4CB0052AF00 /* GridCollectionViewCell.xib in Resources */,
@@ -294,6 +301,7 @@
 				16540B812546F40A0052AF00 /* DetailsViewController.swift in Sources */,
 				16540B672545D9C90052AF00 /* usersDataSource.swift in Sources */,
 				16540B8C254B064D0052AF00 /* AddUserTableViewController.swift in Sources */,
+				16C5B4DC2552122600EB4D5A /* HeaderCollectionView.swift in Sources */,
 				16540B7C2546D4CB0052AF00 /* GridCollectionViewCell.swift in Sources */,
 				16540B4B2545A6510052AF00 /* AppDelegate.swift in Sources */,
 				16540B4D2545A6510052AF00 /* SceneDelegate.swift in Sources */,

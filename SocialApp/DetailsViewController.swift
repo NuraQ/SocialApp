@@ -38,6 +38,7 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         makeImgCircular()
+        
        
     }
     var user:User? {
@@ -45,6 +46,8 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
             guard user != nil else { return }
         }
     }
+    
+  
     
     override func viewDidLoad() {
         
@@ -74,11 +77,11 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
     
     func updateLabels() {
         
-        let strLocation = "address: city" + (user?.address.city)! + "  street: " +  (user?.address.street)!
-        useName?.text = "Name: " + (user?.username)!
-        Email?.text = "Email:  " + (user?.email)!
-        phoneNumber?.text = "PhoneNumber:  " + (user?.phone)!
-        webSite?.text = "Website:  " + (user?.website)!
+        let strLocation = "city" + (user?.address.city)! + "  street: " +  (user?.address.street)!
+        useName?.text = (user?.username)!
+        Email?.text = (user?.email)!
+        phoneNumber?.text = (user?.phone)!
+        webSite?.text = (user?.website)!
         location?.text = strLocation + " suite: \((user?.address.suite)!)"
         company?.text = "Company: " + (user?.company.name)! + (user?.company.catchPhrase)! + (user?.company.bs)!
 
