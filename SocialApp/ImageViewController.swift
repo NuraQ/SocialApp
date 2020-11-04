@@ -16,15 +16,26 @@ class ImageViewController: UIViewController {
         }
     }
     
+    
     var img:UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadInputViews()
        image?.image = img
+        
+        let tapGesture = UITapGestureRecognizer(target: self,
+        action: #selector(onTap(_:)))
+        image.addGestureRecognizer(tapGesture)
+
     }
     
-
+   @objc func onTap(_ gesture: UIGestureRecognizer) {
+      if (gesture.state == .ended) {
+        /* action */
+        print("sdefw")
+      }
+    }
    
 
 }

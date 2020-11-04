@@ -24,6 +24,8 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
         }
     }
     
+  
+    
     let MapView: MKMapView = {
         let map = MKMapView()
         map.isZoomEnabled = false
@@ -47,7 +49,7 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
         }
     }
     
-  
+
     
     override func viewDidLoad() {
         
