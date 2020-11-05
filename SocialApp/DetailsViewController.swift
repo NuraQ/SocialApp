@@ -63,7 +63,7 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
     func makeImgCircular(){
         userImage.clipsToBounds = true
         userImage.layer.borderWidth = 3;
-        userImage.layer.borderColor =  UIColor.lightGray.cgColor
+        userImage.layer.borderColor =  #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
         userImage.layer.cornerRadius = userImage.frame.size.width / 2.0 ;
     }
     
@@ -84,7 +84,7 @@ class DetailsViewController: UIViewController , UIScrollViewDelegate{
         Email?.text = (user?.email)!
         phoneNumber?.text = (user?.phone)!
         webSite?.text = (user?.website)!
-        location?.text = strLocation + " suite: \((user?.address.suite)!)"
+        location?.text = strLocation 
         company?.text = "Company: " + (user?.company.name)! + (user?.company.catchPhrase)! + (user?.company.bs)!
 
     }

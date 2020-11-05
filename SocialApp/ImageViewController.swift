@@ -28,7 +28,9 @@ class ImageViewController: UIViewController , UIGestureRecognizerDelegate {
         action: #selector(onTap(_:)))
         tapGesture.delegate = self
         self.view.addGestureRecognizer(tapGesture)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
 
+        
     }
     
    @objc func onTap(_ gesture: UIGestureRecognizer) {
@@ -43,5 +45,9 @@ class ImageViewController: UIViewController , UIGestureRecognizerDelegate {
         return tabBarState
     }
    
+    @IBAction func unwindToCollectionView(_ unwindSegue: UIStoryboardSegue) {
+        
+           // Use data from the view controller which initiated the unwind segue
+       }
 
 }

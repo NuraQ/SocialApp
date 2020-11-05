@@ -118,21 +118,7 @@ class ImageGridCollectionViewController: UICollectionViewController,UICollection
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "imageView" ,
-            let imageScene = segue.destination as? ImageViewController {
-        
-            let selectedImageUrl = imagesDataSource.galleries[selectedSection + 1]?[selectedRow].url
-            if let url = URL(string:selectedImageUrl ?? "" ) {
-                    if let data = try? Data(contentsOf: url)
-                    {
-                        let image: UIImage = UIImage(data: data)!
-                        imageScene.img = image
-                    }
-            }
-            print(selectedRow)
-        }
-    }
+
     
 }
 
@@ -165,5 +151,25 @@ extension ImageGridCollectionViewController {
 
     }
 
+    
+}
+
+extension ImageGridCollectionViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "imageView" ,
+            let imageScene = segue.destination as? ImageViewController {
+        
+            let selectedImageUrl = imagesDataSource.galleries[selectedSection + 1]?[selectedRow].url
+            if let url = URL(string:selectedImageUrl ?? "" ) {
+                    if let data = try? Data(contentsOf: url)
+                    {
+                        let image: UIImage = UIImage(data: data)!
+                        imageScene.img = image
+                    }
+            }
+            print(selectedRow)
+        }
+    }
+   
 }
 // MARK: - UITableViewDelegate
