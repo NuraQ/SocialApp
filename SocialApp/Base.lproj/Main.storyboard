@@ -90,11 +90,10 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MoM-8Y-WkS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="fpV-pc-3Kh" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="jlN-gE-qgy" userLabel="swipe up"/>
                 <swipeGestureRecognizer direction="up" id="IuW-6I-Itq" userLabel="swipe up">
                     <connections>
-                        <segue destination="fpV-pc-3Kh" kind="unwind" unwindAction="unwindToCollectionView:" id="H7M-9f-laz"/>
+                        <segue destination="X3m-yx-6qa" kind="show" id="ycE-gX-2RW"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -739,7 +738,7 @@
             <objects>
                 <collectionViewController id="X3m-yx-6qa" customClass="ImageGridCollectionViewController" customModule="SocialApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="MpP-d7-fLs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3hH-E7-XEs">
@@ -793,6 +792,9 @@
             <point key="canvasLocation" x="-65.217391304347828" y="849.77678571428567"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ycE-gX-2RW"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="location" catalog="system" width="128" height="115"/>
